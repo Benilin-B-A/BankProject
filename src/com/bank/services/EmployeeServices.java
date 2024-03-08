@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.enums.Status;
+import com.bank.interfaces.AccountsAgent;
 import com.bank.interfaces.EmployeeAgent;
 import com.bank.interfaces.TransactionAgent;
 import com.bank.persistence.util.PersistenceObj;
@@ -30,18 +31,20 @@ public class EmployeeServices {
 		this.branchId = branchId;
 	}
 
+	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
 	private static EmployeeAgent empAgent = PersistenceObj.getEmployeeAgent();
 	private static TransactionAgent tranAgent = PersistenceObj.getTransactionAgent();
 
 	private static Logger logger = LogHandler.getLogger(CustomerServices.class.getName(), "EmployeeServices.txt");
 
-	private void validateEmpAccess(long accNum) throws BankingException {
+	private boolean validateEmpAccess(long accNum) throws BankingException {
 		try {
-			AuthServices.validateAccount(accNum);
-			boolean isAuthorized = empAgent.getEmployeeAccess(this.userId, accNum);
-			if (!isAuthorized) {
-				throw new BankingException("Employee doesn't have access to this account");
+			AuthServices.validateAccountPresence(accNum);
+			long brId = accAgent.getBranchId(accNum);
+			if (brId == branchId) {
+				return true;
 			}
+			throw new BankingException("Employee doesn't have access to this account");
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in authorizing employee access");
 			throw new BankingException("Couldn't validate credentials");

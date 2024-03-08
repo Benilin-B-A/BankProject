@@ -6,7 +6,7 @@ public class CustomerTableQuery {
 
 	public static String addCustomer = "insert into Customer(ID,AADHAR_NUMBER,PAN_NUMBER) values (?,?,?)";
 
-	public static String changePin = "update User set PIN = ? where ID = ?";
+	public static String changePin = "update Customer set PIN = ? where ID = ?";
 
 	public static String getAttempts = "select FAILED_ATTEMPTS from Tpin_Attempts where CUSTOMER_ID = ?";
 

@@ -81,8 +81,8 @@ public class CustomerServices {
 			cusAgent.changePin(newPin, userId);
 			isPinSet = true;
 		} catch (PersistenceException exception) {
-			logger.log(Level.SEVERE, "Couldn't change pin", exception);
-			throw new BankingException("Couldn't change pin", exception);
+			logger.log(Level.SEVERE, "Couldn't set pin", exception);
+			throw new BankingException("Couldn't set pin", exception);
 		}
 	}
 

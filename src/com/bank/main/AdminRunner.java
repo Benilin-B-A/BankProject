@@ -182,6 +182,8 @@ public class AdminRunner {
 					System.out.println(id);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
+				} catch (InvalidInputException excep) {
+					System.out.println(excep.getMessage());
 				}
 
 				break;
@@ -297,7 +299,7 @@ public class AdminRunner {
 		}
 	}
 
-	public static Employee getEmployee() {
+	public static Employee getEmployee() throws InvalidInputException {
 		User user = new Employee();
 		MainUtil.getUserDetails(user);
 		long branchID = MainUtil.getLong("Enter Branch Id : ");

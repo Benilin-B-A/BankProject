@@ -3,6 +3,7 @@ package com.bank.main;
 import java.util.List;
 
 import com.bank.custom.exceptions.BankingException;
+import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.enums.Status;
 import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
@@ -18,10 +19,10 @@ public class EmployeeRunner {
 
 		while (continueService) {
 
-			int userChoice = MainUtil.getInt("1) View Balance\n" + "2) Withdraw Money" + "3) Deposit Money"
-					+ "4) Transfer Money" + "5) Change Password" + "6) View Statements\n" + "7) Get Account Details\n"
+			int userChoice = MainUtil.getInt("1) View Balance\n" + "2) Withdraw Money\n" + "3) Deposit Money\n"
+					+ "4) Transfer Money\n" + "5) Change Password\n" + "6) View Statements\n" + "7) Get Account Details\n"
 					+ "8) Add Customer\n" + "9) Add Account\n" + "10) Activate/Deactivate account\n"
-					+ "11) Close Account\n" + "12) View Customer Details" + "13) View Employee Details" + "14) Logout"
+					+ "11) Close Account\n" + "12) View Customer Details\n" + "13) View Employee Details\n" + "14) Logout\n"
 					+ "Enter choice : ", 14);
 
 			switch (userChoice) {
@@ -151,6 +152,8 @@ public class EmployeeRunner {
 					System.out.println(id);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
+				} catch (InvalidInputException exception) {
+					System.out.println(exception.getMessage());
 				}
 
 				break;
@@ -170,7 +173,7 @@ public class EmployeeRunner {
 
 			case 10:
 
-				int statusChoice = MainUtil.getInt("1) Activate account\n2) Deactivate account\nEnter choice", 2);
+				int statusChoice = MainUtil.getInt("1) Activate account\n2) Deactivate account\nEnter choice : ", 2);
 
 				long accoNum = MainUtil.getLong("Enter account number : ");
 

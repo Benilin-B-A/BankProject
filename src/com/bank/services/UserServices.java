@@ -20,6 +20,8 @@ import com.bank.pojo.Transaction;
 import com.bank.util.LogHandler;
 import com.bank.util.Validator;
 
+import trial.TransacOperations;
+
 public abstract class UserServices {
 
 	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
@@ -229,7 +231,8 @@ public abstract class UserServices {
 			account.setPrimary(true);
 			String password = AuthServices.hashPassword(cus.getdOB());
 			cus.setUserType("Customer");
-			return cusAgent.addCustomer(cus, account, password);
+//			return cusAgent.addCustomer(cus, account, password);
+			return TransacOperations.addCustomer(cus, account, password);
 		} catch (PersistenceException exception) {
 			exception.printStackTrace();
 			logger.log(Level.SEVERE, "Error in adding Customer", exception);
@@ -244,7 +247,7 @@ public abstract class UserServices {
 			throw new BankingException("Account is null");
 		}
 		try {
-			accAgent.addAccount(account);
+			TransacOperations.addAccount(account);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in adding account", exception);
 			throw new BankingException("Couldn't add account");

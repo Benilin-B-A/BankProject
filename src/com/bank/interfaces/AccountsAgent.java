@@ -26,11 +26,13 @@ public interface AccountsAgent {
 
 	Map<Long, Account> getAccounts(long customerId) throws PersistenceException;
 
-	void addAccount(Account account) throws PersistenceException;
+//	void addAccount(Account account) throws PersistenceException;
 
 	public Object getAccStatus(long accNum) throws PersistenceException;
 
 	public void setAccStatus(long accNum, Status status) throws PersistenceException;
 
 	void closeAndMove(long accNum) throws PersistenceException;
+
+	long getBranchId(long accNum) throws PersistenceException;
 }

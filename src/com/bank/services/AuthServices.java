@@ -35,9 +35,11 @@ public class AuthServices {
 					return true;
 				}
 				setAttempt(uId, attempt + 1);
+				logger.warning("Incorrect login attempt on user id : "+ uId);
 				throw new BankingException("Incorrect login credential :" + (3 - attempt) + " attempt(s) left");
 			}
 			setStatus(uId, Status.BLOCKED);
+			logger.warning("User id : "+ uId + "blocked exceeding login attempt limit");
 			throw new BankingException("User Blocked : Contact nearby BOB authority to regain access");
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Login error", exception);
@@ -67,10 +69,12 @@ public class AuthServices {
 				if (BCrypt.checkpw(pin, cusAgent.getPin(userId))) {
 					return true;
 				}
-				cusAgent.setTpinAttempts(userId, attempts + 1);
+				setTpinAttempt(userId, attempts+1);
+				logger.warning("Incorrect tpin attempt on user id : "+ userId);
 				throw new BankingException("Incorrect pin : " + (3 - attempts) + " attempt(s) left");
 			}
 			setStatus(userId, Status.BLOCKED);
+			logger.warning("User id : "+ userId + "blocked exceeding tpin attempt limit");
 			throw new BankingException("User Blocked : Contact nearby BOB authority to regain access");
 		} catch (PersistenceException | BankingException exception) {
 			logger.log(Level.SEVERE, "Error in authenticating user", exception);
@@ -83,14 +87,23 @@ public class AuthServices {
 		String salt = BCrypt.gensalt();
 		return BCrypt.hashpw(plainPassword, salt);
 	}
-
+	
 	// update login attempts
 	private static void setAttempt(long userId, int attempt) throws BankingException {
 		try {
 			userAgent.setAttempt(userId, attempt);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in updating failed attempts", exception);
-			throw new BankingException("Attempt update error", exception);
+			throw new BankingException("Login Attempt update error", exception);
+		}
+	}
+	
+	private static void setTpinAttempt(long userId, int attempt) throws BankingException {
+		try {
+			cusAgent.setTpinAttempts(userId, attempt);
+		} catch (PersistenceException exception) {
+			logger.log(Level.SEVERE, "Error in updating failed tpin attempts", exception);
+			throw new BankingException("Tpin Attempt update error", exception);
 		}
 	}
 
@@ -105,7 +118,8 @@ public class AuthServices {
 			}
 			userAgent.setStatus(uId, status);
 			if (presentState.equals("Blocked") && state.equals("Active")) {
-				setAttempt(uId, 0);
+				setAttempt(uId, 1);
+				setTpinAttempt(uId, 1);
 			}
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in setting user status", exception);

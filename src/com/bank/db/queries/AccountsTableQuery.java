@@ -33,4 +33,6 @@ public class AccountsTableQuery {
 	
 	public static String closeAccount = "delete from Accounts where ACC_NUMBER = ?";
 
+	public static String getBranchId = "select BRANCH_ID from Accounts where ACC_NUMBER = ?";
+
 }

@@ -11,7 +11,6 @@ import com.bank.custom.exceptions.PersistenceException;
 import com.bank.enums.Status;
 import com.bank.interfaces.AccountsAgent;
 import com.bank.interfaces.BranchAgent;
-import com.bank.interfaces.EmployeeAgent;
 import com.bank.persistence.util.PersistenceObj;
 import com.bank.pojo.Account;
 import com.bank.pojo.Branch;
@@ -20,6 +19,8 @@ import com.bank.pojo.Employee;
 import com.bank.pojo.Transaction;
 import com.bank.util.LogHandler;
 import com.bank.util.Validator;
+
+import trial.TransacOperations;
 
 public class AdminServices {
 
@@ -32,17 +33,11 @@ public class AdminServices {
 	private static Logger logger = LogHandler.getLogger(AuthServices.class.getName(), "AdminServicesLogs.txt");
 
 	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
-	private static EmployeeAgent empAgent = PersistenceObj.getEmployeeAgent();
 	private static BranchAgent branchAgent = PersistenceObj.getBranchAgent();
 
 	public long getBalance(long aNum) throws BankingException {
-		try {
-			accAgent.validateAccount(aNum);
-			return UserServices.getBalance(aNum);
-		} catch (PersistenceException exception) {
-			logger.log(Level.SEVERE, "Error in fetching balance", exception);
-			throw new BankingException("Error in fetching balance");
-		}
+		AuthServices.validateAccountPresence(aNum);
+		return UserServices.getBalance(aNum);
 	}
 
 	public void withdraw(long accNum, long amount) throws BankingException {
@@ -97,7 +92,7 @@ public class AdminServices {
 			String password = AuthServices.hashPassword(emp.getdOB());
 			emp.setUserType("Employee");
 			validateBranch(emp.getBranchID());
-			return empAgent.addEmployee(emp, password);
+			return TransacOperations.addEmployee(emp, password);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in adding Employee", exception);
 			throw new BankingException("Couldn't add Employee");

@@ -9,9 +9,11 @@ public class Validator {
 	private static Pattern mobilePattern = Pattern.compile("^[7-9]{1}[0-9]{9}$");
 	private static Pattern alphaNumeric = Pattern.compile("\\A[0-9A-Z]+\\Z");
 	private static Pattern mailPattern = Pattern.compile("\\A[a-zA-Z0-9+-_~]+@[a-zA-Z]+.[a-zA-Z]{2,}");
-	private static Pattern passwordPattern = Pattern.compile("[[a-z]+[A-Z]+[0-9]+[!@#$%^&*()_+]+]{8,}");
+	private static Pattern passwordPattern = Pattern.compile(
+			"^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+]).{8,}$");
 	private static Pattern pinPattern = Pattern.compile("[0-9]{4}");
-	private static Pattern dOBPattern = Pattern.compile("[1920-2006]{1}[1-12]{1}[1-31]{1}");
+	private static Pattern dOBPattern = Pattern.compile(
+			"^(?:\\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1][0-9]|[2][0-9]|3[01])$");
 	private static Pattern genderPattern = Pattern.compile("^(Male|Female|Other)$");
 
 	public static boolean validateMobile(String num) throws InvalidInputException {

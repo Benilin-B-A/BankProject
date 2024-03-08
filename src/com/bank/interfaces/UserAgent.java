@@ -2,7 +2,6 @@ package com.bank.interfaces;
 
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.enums.Status;
-import com.bank.pojo.User;
 
 public interface UserAgent {
 
@@ -22,6 +21,6 @@ public interface UserAgent {
 
 	public void changePassword(long userId, String hashPassword) throws PersistenceException;
 
-	public long addUser(User usr, String password) throws PersistenceException;
+//	public long addUser(User usr, String password) throws PersistenceException;
 
 }

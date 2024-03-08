@@ -172,19 +172,19 @@ public class AccountsDBAgent implements AccountsAgent {
 		}
 	}
 
-	@Override
-	public void addAccount(Account account) throws PersistenceException {
-		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(AccountsTableQuery.addAccount)) {
-			st.setLong(1, account.getUId());
-			st.setString(2, account.getType());
-			st.setLong(3, account.getBranchId());
-			st.setBoolean(4, account.isPrimary());
-			st.execute();
-		} catch (SQLException exception) {
-			throw new PersistenceException("Error in adding Account", exception);
-		}
-	}
+//	@Override
+//	public void addAccount(Account account) throws PersistenceException {
+//		try (Connection connection = connect();
+//				PreparedStatement st = connection.prepareStatement(AccountsTableQuery.addAccount)) {
+//			st.setLong(1, account.getUId());
+//			st.setString(2, account.getType());
+//			st.setLong(3, account.getBranchId());
+//			st.setBoolean(4, account.isPrimary());
+//			st.execute();
+//		} catch (SQLException exception) {
+//			throw new PersistenceException("Error in adding Account", exception);
+//		}
+//	}
 
 	@Override
 	public String getAccStatus(long accNum) throws PersistenceException {
@@ -223,6 +223,20 @@ public class AccountsDBAgent implements AccountsAgent {
 			st2.execute();
 		} catch (SQLException exception) {
 			throw new PersistenceException("Couldn't delete account", exception);
+		}
+	}
+
+	@Override
+	public long getBranchId(long accNum) throws PersistenceException {
+		try (Connection connection = connect();
+				PreparedStatement st = connection.prepareStatement(AccountsTableQuery.getBranchId)) {
+			st.setLong(1, accNum);
+			try (ResultSet set = st.executeQuery()) {
+				set.next();
+				return set.getLong(1);
+			}
+		} catch (SQLException exception) {
+			throw new PersistenceException("Couldn't fetch branch Id", exception);
 		}
 	}
 }

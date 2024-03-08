@@ -6,9 +6,6 @@ public class EmployeeTableQuery {
 
 	public static String getBranchId = "select BRANCH_ID from Employee where ID = ?";
 
-	public static String getEmployeeAccess = "select exists(select * from Employee inner join Accounts on "
-			+ "Accounts.BRANCH_ID = Employee.BRANCH_ID where ID = ? and ACC_NUMBER = ?);";
-	
 	public static String addEmployee = "insert into Employee(ID,BRANCH_ID,ADMIN_ACCESS) values(?,?,?)";
 	
 	public static String getEmployeeProfile = "select NAME,DOB, GENDER, ADDRESS, EMAIL, PHONE, STATUS, BRANCH_ID, ADMIN_ACCESS "

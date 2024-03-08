@@ -8,11 +8,7 @@ import java.sql.SQLException;
 
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.db.queries.CustomerTableQuery;
-import com.bank.interfaces.AccountsAgent;
 import com.bank.interfaces.CustomerAgent;
-import com.bank.interfaces.UserAgent;
-import com.bank.persistence.util.PersistenceObj;
-import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
 
 public class CustomerDBAgent implements CustomerAgent {
@@ -32,9 +28,7 @@ public class CustomerDBAgent implements CustomerAgent {
 		return DriverManager.getConnection(ConnectionHandler.getURL(), ConnectionHandler.getUser(),
 				ConnectionHandler.getPassword());
 	}
-	private static UserAgent userAgent = PersistenceObj.getUserAgent();
-	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
-
+	
 	@Override
 	public String getPin(long userId) throws PersistenceException {
 		try (Connection connection = connect();
@@ -49,22 +43,22 @@ public class CustomerDBAgent implements CustomerAgent {
 		}
 	}
 	
-	@Override
-	public long addCustomer(Customer cus, Account account, String password) throws PersistenceException {
-		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(CustomerTableQuery.addCustomer)) {
-			long id = userAgent.addUser(cus, password);
-			st.setLong(1, id);
-			st.setLong(2, cus.getAadharNum());
-			st.setString(3, cus.getPanNum());
-			st.execute();
-			account.setUId(id);
-			accAgent.addAccount(account);
-			return id;
-		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't add Customer", exception);
-		}
-	}
+//	@Override
+//	public long addCustomer(Customer cus, Account account, String password) throws PersistenceException {
+//		try (Connection connection = connect();
+//				PreparedStatement st = connection.prepareStatement(CustomerTableQuery.addCustomer)) {
+//			long id = userAgent.addUser(cus, password);
+//			st.setLong(1, id);
+//			st.setLong(2, cus.getAadharNum());
+//			st.setString(3, cus.getPanNum());
+//			st.execute();
+//			account.setUId(id);
+//			accAgent.addAccount(account);
+//			return id;
+//		} catch (SQLException exception) {
+//			throw new PersistenceException("Couldn't add Customer", exception);
+//		}
+//	}
 
 	@Override
 	public void changePin(String newPin, long userId) throws PersistenceException {

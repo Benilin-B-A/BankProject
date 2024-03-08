@@ -10,7 +10,6 @@ import com.bank.custom.exceptions.PersistenceException;
 import com.bank.db.queries.UserTableQuery;
 import com.bank.enums.Status;
 import com.bank.interfaces.UserAgent;
-import com.bank.pojo.User;
 
 public class UserDBAgent implements UserAgent{
 	
@@ -137,28 +136,28 @@ public class UserDBAgent implements UserAgent{
 		}
 	}
 	
-	@Override
-	public long addUser(User usr, String password) throws PersistenceException {
-		try (Connection connection = connect();
-				PreparedStatement statement = connection.prepareStatement(UserTableQuery.addUser)) {
-			statement.setString(1, usr.getName());
-			statement.setString(2, usr.getdOB());
-			statement.setLong(3, usr.getPhone());
-			statement.setString(4, usr.getMail());
-			statement.setString(5, usr.getGender());
-			statement.setString(6, usr.getUserType());
-			statement.setString(7, usr.getAddress());
-			statement.setString(8, password);
-			statement.execute();
-			try (PreparedStatement st = connection.prepareStatement(UserTableQuery.getLastInsertId);
-					ResultSet set = st.executeQuery()) {
-				set.next();
-				return set.getLong(1);
-			}
-		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't add user", exception);
-		}
-	}
+//	@Override
+//	public long addUser(User usr, String password) throws PersistenceException {
+//		try (Connection connection = connect();
+//				PreparedStatement statement = connection.prepareStatement(UserTableQuery.addUser)) {
+//			statement.setString(1, usr.getName());
+//			statement.setString(2, usr.getdOB());
+//			statement.setLong(3, usr.getPhone());
+//			statement.setString(4, usr.getMail());
+//			statement.setString(5, usr.getGender());
+//			statement.setString(6, usr.getUserType());
+//			statement.setString(7, usr.getAddress());
+//			statement.setString(8, password);
+//			statement.execute();
+//			try (PreparedStatement st = connection.prepareStatement(UserTableQuery.getLastInsertId);
+//					ResultSet set = st.executeQuery()) {
+//				set.next();
+//				return set.getLong(1);
+//			}
+//		} catch (SQLException exception) {
+//			throw new PersistenceException("Couldn't add user", exception);
+//		}
+//	}
 
 	
 }

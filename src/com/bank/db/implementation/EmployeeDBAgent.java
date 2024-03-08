@@ -61,35 +61,20 @@ public class EmployeeDBAgent implements EmployeeAgent {
 		}
 	}
 
-	@Override
-	public boolean getEmployeeAccess(long userId, long accNum) throws PersistenceException {
-		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.getEmployeeAccess)) {
-			st.setLong(1, userId);
-			st.setLong(2, accNum);
-			try (ResultSet set = st.executeQuery()) {
-				set.next();
-				return set.getBoolean(1);
-			}
-		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't get employee access to given account", exception);
-		}
-	}
-	
-	@Override
-	public long addEmployee(Employee emp, String pwd) throws PersistenceException {
-		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.addEmployee)) {
-			long id = usAgent.addUser(emp, pwd);
-			st.setLong(1, id);
-			st.setLong(2, emp.getBranchID());
-			st.setBoolean(3, emp.isAdmin());
-			st.execute();
-			return id;
-		} catch (SQLException exception) {
-			throw new PersistenceException("Error in adding Employee", exception);
-		}
-	}
+//	@Override
+//	public long addEmployee(Employee emp, String pwd) throws PersistenceException {
+//		try (Connection connection = connect();
+//				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.addEmployee)) {
+//			long id = usAgent.addUser(emp, pwd);
+//			st.setLong(1, id);
+//			st.setLong(2, emp.getBranchID());
+//			st.setBoolean(3, emp.isAdmin());
+//			st.execute();
+//			return id;
+//		} catch (SQLException exception) {
+//			throw new PersistenceException("Error in adding Employee", exception);
+//		}
+//	}
 
 	@Override
 	public Employee getEmployee(long userId) throws PersistenceException {

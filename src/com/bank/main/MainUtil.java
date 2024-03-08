@@ -19,11 +19,10 @@ import com.bank.util.LogHandler;
 import com.bank.util.Validator;
 
 public class MainUtil {
-	
+
 	private static Scanner scan = new Scanner(System.in);
 	private static Logger logger = LogHandler.getLogger(MainUtil.class.getName(), "InputUtilLogs.txt");
 
-	
 	public static Transaction getTransactionObj() {
 		Transaction trans = new Transaction();
 		long accNum = getLong("Enter recepient account number : ");
@@ -37,7 +36,7 @@ public class MainUtil {
 		return trans;
 	}
 
-	public static Customer getCustomer() {
+	public static Customer getCustomer() throws InvalidInputException {
 		User usr = new Customer();
 		getUserDetails(usr);
 		long aadhar = getLong("Enter Aadhar Number : ");
@@ -47,28 +46,23 @@ public class MainUtil {
 		return (Customer) usr;
 	}
 
-
-	public static void getUserDetails(User user) {
+	public static void getUserDetails(User user) throws InvalidInputException {
 		String name = getString("Enter name : ");
 		user.setName(name);
-		try {
-			String dOB = getString("Enter DOB (YYYY-MM-DD) : ");
-			user.setdOB(dOB);
-			Validator.validateDOB(dOB);
-			String phone = getString("Enter phone number : ");
-			Validator.validateMobile(phone);
-			user.setPhone(Long.parseLong(phone));
-			String eMail = getString("Enter E-Mail : ");
-			Validator.validateMail(eMail);
-			user.setMail(eMail);
-		} catch (InvalidInputException exception) {
-			logger.log(Level.WARNING, "Invalid mail", exception);
-			System.out.println(exception.getMessage());
-		}
+		String dOB = getString("Enter DOB (YYYY-MM-DD) : ");
+		user.setdOB(dOB);
+		Validator.validateDOB(dOB);
+		String phone = getString("Enter phone number : ");
+		Validator.validateMobile(phone);
+		user.setPhone(Long.parseLong(phone));
+		String eMail = getString("Enter E-Mail : ");
+		Validator.validateMail(eMail);
+		user.setMail(eMail);
 		String gender = getString("Gender (Male/Female/Other) : ");
 		user.setGender(gender);
 		String address = getString("Enter Address : ");
 		user.setAddress(address);
+
 	}
 
 	public static Account getAccount() {
@@ -77,12 +71,12 @@ public class MainUtil {
 		account.setType(type);
 		return account;
 	}
-	
+
 	static long getLong(String str) {
 		System.out.print(str);
 		try {
 			long num = scan.nextLong();
-			if(num<=0) {
+			if (num <= 0) {
 				throw new InvalidInputException("Value cannot be zero or negative");
 			}
 			scan.nextLine();
@@ -115,7 +109,7 @@ public class MainUtil {
 			return getInt(str, limit);
 		}
 	}
-	
+
 	static String getType() {
 		String type = null;
 		int typeChoice = getInt("Enter type [(1) - Credit, (2) - Debit] : ", 2);
@@ -126,8 +120,8 @@ public class MainUtil {
 		}
 		return type;
 	}
-	
-	static Date getDate(){
+
+	static Date getDate() {
 		String dateStr = getString("Enter Date [YYYY-MM-DD]: ");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 		try {
