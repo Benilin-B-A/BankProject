@@ -1,0 +1,20 @@
+Mar 08, 2024 3:04:35 PM com.bank.services.UserServices getBalance
+SEVERE: Error in fetching balance
+com.bank.custom.exceptions.PersistenceException: Couldn't fetch password
+	at BOB/com.bank.db.implementation.AccountsDBAgent.getBalance(AccountsDBAgent.java:45)
+	at BOB/com.bank.services.UserServices.getBalance(UserServices.java:38)
+	at BOB/com.bank.services.AdminServices.getBalance(AdminServices.java:41)
+	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:37)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: java.sql.SQLException: Illegal operation on empty result set.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64)
+	at com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:528)
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getObject(ResultSetImpl.java:1264)
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getLong(ResultSetImpl.java:852)
+	at BOB/com.bank.db.implementation.AccountsDBAgent.getBalance(AccountsDBAgent.java:42)
+	... 5 more
+
