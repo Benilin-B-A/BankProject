@@ -39,7 +39,7 @@ public class Runner {
 				System.out.println("Login Successful : Welcome");
 				Object user = null;
 				try {
-					user = AuthServices.getUser(userId);
+					user = AuthServices.getServiceObj(userId);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
 				}

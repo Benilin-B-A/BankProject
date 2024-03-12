@@ -1,68 +1,293 @@
-Mar 08, 2024 10:59:45 AM com.bank.main.Runner login
+Mar 08, 2024 8:19:44 PM com.bank.main.Runner login
 SEVERE: Login Error
 com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:38)
-	at BOB/com.bank.main.Runner.login(Runner.java:70)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
 
-Mar 08, 2024 11:10:19 AM com.bank.main.Runner login
-SEVERE: Login Error
-com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:38)
-	at BOB/com.bank.main.Runner.login(Runner.java:70)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 11:10:56 AM com.bank.main.Runner login
+Mar 08, 2024 8:19:50 PM com.bank.main.Runner login
 SEVERE: Login Error
 com.bank.custom.exceptions.BankingException: Incorrect login credential :1 attempt(s) left
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:38)
-	at BOB/com.bank.main.Runner.login(Runner.java:70)
-	at BOB/com.bank.main.Runner.login(Runner.java:74)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
 
-Mar 08, 2024 11:11:11 AM com.bank.main.Runner login
+Mar 08, 2024 8:20:07 PM com.bank.main.Runner login
 SEVERE: Login Error
 com.bank.custom.exceptions.BankingException: User Blocked : Contact nearby BOB authority to regain access
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
-	at BOB/com.bank.main.Runner.login(Runner.java:70)
-	at BOB/com.bank.main.Runner.login(Runner.java:74)
-	at BOB/com.bank.main.Runner.login(Runner.java:74)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 3:43:31 PM com.bank.main.Runner login
-SEVERE: Login Error
-com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
-	at BOB/com.bank.main.Runner.login(Runner.java:70)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 6:05:54 PM com.bank.main.Runner login
-SEVERE: Login Error
-com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:43)
 	at BOB/com.bank.main.Runner.login(Runner.java:71)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
 
-Mar 08, 2024 6:06:18 PM com.bank.main.Runner login
+Mar 08, 2024 8:20:43 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 08, 2024 8:20:53 PM com.bank.main.Runner login
 SEVERE: Login Error
 com.bank.custom.exceptions.BankingException: Incorrect login credential :1 attempt(s) left
 	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
 	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
 
-Mar 08, 2024 6:06:29 PM com.bank.main.Runner login
+Mar 08, 2024 8:20:58 PM com.bank.main.Runner login
 SEVERE: Login Error
 com.bank.custom.exceptions.BankingException: User Blocked : Contact nearby BOB authority to regain access
 	at BOB/com.bank.services.AuthServices.login(AuthServices.java:43)
 	at BOB/com.bank.main.Runner.login(Runner.java:71)
 	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 08, 2024 8:21:14 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 08, 2024 8:21:46 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :1 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 08, 2024 8:22:04 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 08, 2024 8:26:58 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 08, 2024 9:40:50 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 09, 2024 11:31:53 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 2:44:03 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Couldn't validate user
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:175)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: com.bank.custom.exceptions.PersistenceException: Couldn't fetch status
+	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:96)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:169)
+	... 4 more
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATE' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
+	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:91)
+	... 5 more
+
+Mar 12, 2024 2:45:27 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Couldn't validate user
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:175)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
+	at BOB/com.bank.main.Runner.login(Runner.java:72)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: com.bank.custom.exceptions.PersistenceException: Couldn't fetch status
+	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:96)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:169)
+	... 4 more
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATE' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
+	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:91)
+	... 5 more
+
+Mar 12, 2024 2:47:00 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Couldn't validate user
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:176)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: com.bank.custom.exceptions.PersistenceException: Couldn't fetch status
+	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:96)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:169)
+	... 4 more
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATE' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
+	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:91)
+	... 5 more
+
+Mar 12, 2024 3:54:04 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 3:56:27 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 3:58:23 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Invalid user Id
+	at BOB/com.bank.services.AuthServices.validateUserPresence(AuthServices.java:157)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:168)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 3:58:30 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 4:07:32 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 4:15:47 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 4:15:56 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :1 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:39)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 12, 2024 4:16:08 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Status Update Error
+	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:135)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: com.bank.custom.exceptions.PersistenceException: Couldn't update status
+	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:108)
+	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:128)
+	... 6 more
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATUS' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:106)
+	... 7 more
+
+Mar 12, 2024 4:16:52 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Status Update Error
+	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:135)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: com.bank.custom.exceptions.PersistenceException: Couldn't update status
+	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:108)
+	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:128)
+	... 7 more
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATUS' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:106)
+	... 8 more
+
+Mar 12, 2024 4:17:02 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Status Update Error
+	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:136)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: com.bank.custom.exceptions.PersistenceException: Couldn't update status
+	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:108)
+	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:128)
+	... 4 more
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATUS' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:106)
+	... 5 more
 

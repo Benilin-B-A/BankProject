@@ -1,4 +1,4 @@
-package trial;
+package com.bank.db.implementation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,24 +7,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.bank.custom.exceptions.PersistenceException;
-import com.bank.db.implementation.ConnectionHandler;
 import com.bank.db.queries.AccountsTableQuery;
 import com.bank.db.queries.CustomerTableQuery;
 import com.bank.db.queries.EmployeeTableQuery;
 import com.bank.db.queries.UserTableQuery;
+import com.bank.interfaces.TransacAgent;
 import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
 import com.bank.pojo.Employee;
 import com.bank.pojo.User;
 
-public class TransacOperations {
+public class TransacOperations implements TransacAgent{
+	
+	private TransacOperations() {
+	}
+	
+	private static class TransacDBAgentHolder{
+		private final static TransacOperations trAgent = new TransacOperations(); 
+	}
+	
+	public static TransacOperations getTransacDBAgent() {
+		return TransacDBAgentHolder.trAgent;
+	}
 
 	private static Connection connect() throws SQLException {
 		return DriverManager.getConnection(ConnectionHandler.getURL(), ConnectionHandler.getUser(),
 				ConnectionHandler.getPassword());
 	}
 
-	public static long addCustomer(Customer customer, Account account, String password) throws PersistenceException {
+	@Override
+	public long addCustomer(Customer customer, Account account, String password) throws PersistenceException {
 		Connection connection = null;
 		try{
 			connection = connect();
@@ -45,7 +57,8 @@ public class TransacOperations {
 		}
 	}
 	
-	public static long addEmployee(Employee employee, String password) throws PersistenceException {
+	@Override
+	public long addEmployee(Employee employee, String password) throws PersistenceException {
 		Connection connection = null;
 		try{
 			connection = connect();
@@ -60,13 +73,15 @@ public class TransacOperations {
 			} catch (SQLException excep) {
 				throw new PersistenceException("Couldn't complete adding customer", excep);
 			}
-			throw new PersistenceException("Error in adding Customer", exception);
+			throw new PersistenceException("Error in adding Employee", exception);
 		}
 	}
 
-	public static void addAccount(Account account) throws PersistenceException{
+	
+	@Override
+	public  void addAccount(Account account) throws PersistenceException{
 		try (Connection connection = connect()) {
-			addAccount(account);
+			addAccount(connection, account);
 		} catch (SQLException exception) {
 			throw new PersistenceException("Error in adding Account", exception);
 		}
@@ -75,9 +90,10 @@ public class TransacOperations {
 	private static void addAccount(Connection connection, Account account) throws SQLException {
 		try (PreparedStatement st = connection.prepareStatement(AccountsTableQuery.addAccount)) {
 			st.setLong(1, account.getUId());
-			st.setString(2, account.getType());
+			st.setInt(2, account.getType().getType());
 			st.setLong(3, account.getBranchId());
 			st.setBoolean(4, account.isPrimary());
+			st.setLong(5, System.currentTimeMillis());
 			st.execute();
 		}
 	}
@@ -95,7 +111,6 @@ public class TransacOperations {
 		try (PreparedStatement st = con.prepareStatement(EmployeeTableQuery.addEmployee)) {
 			st.setLong(1, id);
 			st.setLong(2, emp.getBranchID());
-			st.setBoolean(3, emp.isAdmin());
 			st.execute();
 		}
 	}
@@ -107,7 +122,7 @@ public class TransacOperations {
 			statement.setLong(3, usr.getPhone());
 			statement.setString(4, usr.getMail());
 			statement.setString(5, usr.getGender());
-			statement.setString(6, usr.getUserType());
+			statement.setInt(6, usr.getLevel().getLevel());
 			statement.setString(7, usr.getAddress());
 			statement.setString(8, password);
 			statement.executeUpdate();

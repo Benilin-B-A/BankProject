@@ -1,68 +1,87 @@
 package com.bank.pojo;
 
+import com.bank.enums.AccountType;
+import com.bank.enums.Status;
+import com.bank.util.TimeUtil;
+
 public class Account {
-	
+
 	private long uId;
+	private long accNum;
+	private long balance;
+	private AccountType type;
+	private Status status;
+	private long branchId;
+	private long openedOn;
+	private boolean primary;
+
 	public long getUId() {
 		return uId;
 	}
+
 	public void setUId(long uId) {
 		this.uId = uId;
 	}
-	private long accNum;
-	private long balance;
-	private String type;
-	private String status;
-	private long branchId;
-	private java.sql.Timestamp openedOn;
 
 	public boolean isPrimary() {
-		return isPrimary;
+		return primary;
 	}
-	public void setPrimary(boolean isPrimary) {
-		this.isPrimary = isPrimary;
+
+	public void setPrimary(boolean primary) {
+		this.primary = primary;
 	}
-	private boolean isPrimary;
-	
+
 	public long getAccNum() {
 		return accNum;
 	}
+
 	public void setAccNum(long accNum) {
 		this.accNum = accNum;
 	}
+
 	public long getBalance() {
 		return balance;
 	}
+
 	public void setBalance(long balance) {
 		this.balance = balance;
 	}
-	public String getType() {
+
+	public AccountType getType() {
 		return type;
 	}
-	public void setType(String type) {
+
+	public void setType(AccountType type) {
 		this.type = type;
 	}
-	public String getStatus() {
+
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+
+	public void setStatus(Status status) {
 		this.status = status;
 	}
+
 	public long getBranchId() {
 		return branchId;
 	}
+
 	public void setBranchId(long branchId) {
 		this.branchId = branchId;
 	}
-	public java.sql.Timestamp getOpenedOn() {
+
+	public long getOpenedOn() {
 		return openedOn;
 	}
-	public void setOpenedOn(java.sql.Timestamp timestamp) {
+
+	public void setOpenedOn(long timestamp) {
 		this.openedOn = timestamp;
 	}
-	
-	public String toString(){
-		return ("Customer ID : " + this.uId + " | Account Number : " + this.accNum + " | Balance : " + this.balance + " | Branch ID : " 
-	+ this.branchId + " | Opened On : " + this.openedOn + " | Status : " + this.status + " | Type : " + this.type);
+
+	public String toString() {
+		return ("Customer ID : " + this.uId + " | Account Number : " + this.accNum + " | Balance : " + this.balance
+				+ " | Branch ID : " + this.branchId + " | Opened On : " + TimeUtil.getDateTime(this.openedOn)
+				+ " | Status : " + this.status + " | Type : " + this.type);
 	}
 }

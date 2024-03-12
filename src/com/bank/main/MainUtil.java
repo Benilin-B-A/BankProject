@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.bank.custom.exceptions.InvalidInputException;
+import com.bank.enums.AccountType;
 import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
 import com.bank.pojo.Transaction;
@@ -23,12 +24,14 @@ public class MainUtil {
 	private static Scanner scan = new Scanner(System.in);
 	private static Logger logger = LogHandler.getLogger(MainUtil.class.getName(), "InputUtilLogs.txt");
 
-	public static Transaction getTransactionObj() {
+	public static Transaction getTransactionObj(boolean withinBank) {
 		Transaction trans = new Transaction();
 		long accNum = getLong("Enter recepient account number : ");
 		trans.setTransAccNum(accNum);
-		String iFSC = getString("Enter recepient IFSC code : ");
-		trans.setiFSC(iFSC);
+		if (!withinBank){
+			String iFSC = getString("Enter recepient IFSC code : ");
+			trans.setiFSC(iFSC);
+		}
 		long amount = getLong("Enter amount to transfer : ");
 		trans.setAmount(amount);
 		String desc = getString("Enter transfer description : ");
@@ -67,8 +70,15 @@ public class MainUtil {
 
 	public static Account getAccount() {
 		Account account = new Account();
-		String type = getString("Enter Account type (Savings/Current): ");
-		account.setType(type);
+		int type = getInt("Enter Account type 1) Savings 2) Current): ", 2);
+		AccountType accountType;
+		if(type == 1) {
+			accountType = AccountType.Savings;
+		}
+		else {
+			accountType = AccountType.Current;
+		}
+		account.setType(accountType);
 		return account;
 	}
 

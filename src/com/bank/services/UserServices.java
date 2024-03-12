@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.custom.exceptions.PersistenceException;
+import com.bank.enums.UserLevel;
 import com.bank.interfaces.AccountsAgent;
 import com.bank.interfaces.CustomerAgent;
 import com.bank.interfaces.EmployeeAgent;
+import com.bank.interfaces.TransacAgent;
 import com.bank.interfaces.TransactionAgent;
 import com.bank.interfaces.UserAgent;
 import com.bank.persistence.util.PersistenceObj;
@@ -20,8 +22,6 @@ import com.bank.pojo.Transaction;
 import com.bank.util.LogHandler;
 import com.bank.util.Validator;
 
-import trial.TransacOperations;
-
 public abstract class UserServices {
 
 	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
@@ -29,10 +29,10 @@ public abstract class UserServices {
 	private static UserAgent userAgent = PersistenceObj.getUserAgent();
 	private static CustomerAgent cusAgent = PersistenceObj.getCustmomerAgent();
 	private static EmployeeAgent empAgent = PersistenceObj.getEmployeeAgent();
+	private static TransacAgent trAgnet = PersistenceObj.getTransacAgent();
 
 	private static Logger logger = LogHandler.getLogger(UserServices.class.getName(), "UserServices.txt");
 
-	// get the balance of provided acc num
 	static long getBalance(long aNum) throws BankingException {
 		try {
 			return accAgent.getBalance(aNum);
@@ -42,10 +42,9 @@ public abstract class UserServices {
 		}
 	}
 
-	// get customer id from account number
 	static long getCustomerId(long accNum) throws BankingException {
 		try {
-			return accAgent.getCusId(accNum);
+			return accAgent.getCustomerId(accNum);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in fetching customerId", exception);
 			throw new BankingException("Cannot complete withdrawl. Try again");
@@ -70,12 +69,7 @@ public abstract class UserServices {
 		trans.setType("Debit");
 		trans.setOpeningBal(bal);
 		trans.setClosingBal(bal - amount);
-		try {
-			tranAgent.transfer(trans);
-		} catch (PersistenceException exception) {
-			logger.log(Level.SEVERE, "Error in withdrawl", exception);
-			throw new BankingException("Cannot complete withdrawl. Try again");
-		}
+		doTransaction(trans);
 	}
 
 	static void deposit(long accNum, long amount) throws BankingException {
@@ -95,47 +89,42 @@ public abstract class UserServices {
 		trans.setType("Credit");
 		trans.setOpeningBal(bal);
 		trans.setClosingBal(bal + amount);
+		doTransaction(trans);
+	}
+	
+	private static void doTransaction(Transaction trans) throws BankingException {
 		try {
-			tranAgent.transfer(trans);
+			tranAgent.doTransaction(trans);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in deposit", exception);
 			throw new BankingException("cannot complete deposit", exception);
 		}
 	}
 
-	static void transfer(Transaction trans) throws BankingException {
+	static void transferMoney(Transaction trans, boolean withinBank) throws BankingException {
 		try {
 			Validator.checkNull(trans);
 		} catch (InvalidInputException exception) {
 			throw new BankingException("Transaction is null");
 		}
-		try {
-			long senderAccNum = trans.getAccNumber();
-			long tId = System.currentTimeMillis();
-			trans.setTransactionId(tId);
-			String iFSC = trans.getiFSC();
-			Transaction recepient = null;
-			if (iFSC.startsWith("BOB")) {
-				long accNum = trans.getTransAccNum();
-				AuthServices.validateAccount(accNum);
-				if (!accAgent.checkAccAndIFSC(accNum, iFSC)) {
-					throw new BankingException("Invalid IFSC or Account Number");
-				}
-				recepient = new Transaction();
-				recepient.setCustomerId(getCustomerId(accNum));
-				recepient.setAccNumber(accNum);
-				recepient.setTransAccNum(senderAccNum);
-				recepient.setDescription(trans.getDescription());
-				recepient.setAmount(trans.getAmount());
-				recepient.setTransactionId(tId);
-			}
-			withdraw(trans);
-			if (recepient != null) {
-				deposit(recepient);
-			}
-		} catch (PersistenceException exception) {
-			logger.log(Level.SEVERE, "Error In Transaction", exception);
-			throw new BankingException("Couldn't complete Transaction", exception);
+		long senderAccNum = trans.getAccNumber();
+		long tId = System.currentTimeMillis();
+		trans.setTransactionId(tId);
+		Transaction recepient = null;
+		if (withinBank) {
+			long accNum = trans.getTransAccNum();
+			AuthServices.validateAccount(accNum);
+			recepient = new Transaction();
+			recepient.setCustomerId(getCustomerId(accNum));
+			recepient.setAccNumber(accNum);
+			recepient.setTransAccNum(senderAccNum);
+			recepient.setDescription(trans.getDescription());
+			recepient.setAmount(trans.getAmount());
+			recepient.setTransactionId(tId);
+		}
+		withdraw(trans);
+		if (recepient != null) {
+			deposit(recepient);
 		}
 	}
 
@@ -145,7 +134,7 @@ public abstract class UserServices {
 		}
 	}
 
-	static void changePassword(long userId, String oldPassword, String newPassword) throws BankingException {
+	static boolean changePassword(long userId, String oldPassword, String newPassword) throws BankingException {
 		boolean isValid = AuthServices.authUser(userId, oldPassword);
 		try {
 			if(isValid) {
@@ -154,6 +143,7 @@ public abstract class UserServices {
 				}
 				Validator.validatePassword(newPassword);
 				userAgent.changePassword(userId, AuthServices.hashPassword(newPassword));
+				return true;
 			}
 			throw new BankingException("Invalid Password");
 		} catch (PersistenceException exception) {
@@ -171,7 +161,7 @@ public abstract class UserServices {
 			AuthServices.validateAccount(accNum);
 			int limit = 10;
 			int offset = limit * (page - 1);
-			return tranAgent.getAccStatement(accNum, limit, offset);
+			return tranAgent.getAccountStatement(accNum, limit, offset);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Couldn't fetch account statement", exception);
 			throw new BankingException("Couldn't fetch account statement", exception);
@@ -180,7 +170,7 @@ public abstract class UserServices {
 
 	public static List<Transaction> getTransStatement(long transId) throws BankingException {
 		try {
-			return tranAgent.getTransStatement(transId);
+			return tranAgent.getTransactionStatement(transId);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Couldn't fetch transaction statement", exception);
 			throw new BankingException("Couldn't fetch transaction statement", exception);
@@ -210,7 +200,7 @@ public abstract class UserServices {
 
 	static Employee getEmployeeDetails(long userId) throws BankingException {
 		try {
-			if (empAgent.validateEmployee(userId)) {
+			if (empAgent.isEmployeePresent(userId)) {
 				return empAgent.getEmployee(userId);
 			}
 			throw new BankingException("Invalid Employee Id");
@@ -230,9 +220,8 @@ public abstract class UserServices {
 		try {
 			account.setPrimary(true);
 			String password = AuthServices.hashPassword(cus.getdOB());
-			cus.setUserType("Customer");
-//			return cusAgent.addCustomer(cus, account, password);
-			return TransacOperations.addCustomer(cus, account, password);
+			cus.setLevel(UserLevel.Customer);
+			return trAgnet.addCustomer(cus, account, password);
 		} catch (PersistenceException exception) {
 			exception.printStackTrace();
 			logger.log(Level.SEVERE, "Error in adding Customer", exception);
@@ -247,9 +236,10 @@ public abstract class UserServices {
 			throw new BankingException("Account is null");
 		}
 		try {
-			TransacOperations.addAccount(account);
+			trAgnet.addAccount(account);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in adding account", exception);
+			exception.printStackTrace();
 			throw new BankingException("Couldn't add account");
 		}
 
@@ -257,7 +247,7 @@ public abstract class UserServices {
 
 	static void closeAcc(long accNum) throws BankingException {
 		try {
-			accAgent.closeAndMove(accNum);
+			accAgent.closeAccount(accNum);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in closing account", exception);
 			throw new BankingException("Account cannot be closed", exception);

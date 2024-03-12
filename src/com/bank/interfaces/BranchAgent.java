@@ -7,8 +7,8 @@ public interface BranchAgent {
 
 	void addBranch(Branch branch) throws PersistenceException;
 
-	boolean validateIFSC(String iFSC) throws PersistenceException;
+	boolean isIFSCPresent(String iFSC) throws PersistenceException;
 
-	boolean validateBranchId(long branchID) throws PersistenceException;
+	boolean isBranchIdPresent(long branchID) throws PersistenceException;
 
 }

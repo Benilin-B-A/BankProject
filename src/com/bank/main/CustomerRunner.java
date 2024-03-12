@@ -32,15 +32,17 @@ public class CustomerRunner {
 				break;
 
 			case 2:
+				long amount = 0;
 				try {
-					long amount = MainUtil.getLong("Enter amount to withdraw : ");
+					amount = MainUtil.getLong("Enter amount to withdraw : ");
 					String pin = MainUtil.getString("Enter PIN : ");
 					user.withdraw(amount, pin);
 					System.out.println("Wihtdrawl successful");
 				} catch (PinNotSetException exc) {
-					String pin = MainUtil.getString("Enter PIN : ");
+					String pin = MainUtil.getString("Enter PIN to set : ");
 					try {
 						user.setPin(pin);
+						user.withdraw(amount, pin);
 					} catch (BankingException | InvalidInputException e) {
 						System.out.println(e.getMessage());
 					}
@@ -54,8 +56,8 @@ public class CustomerRunner {
 
 			case 3:
 				try {
-					long amount = MainUtil.getLong("Enter amount to deposit : ");
-					user.deposit(amount);
+					long amt = MainUtil.getLong("Enter amount to deposit : ");
+					user.deposit(amt);
 					System.out.println("Deposit successful");
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
@@ -63,14 +65,21 @@ public class CustomerRunner {
 				break;
 
 			case 4:
+				Transaction trans = null;
+				boolean withinBank = false;
 				try {
-					Transaction trans = MainUtil.getTransactionObj();
 					String pin = MainUtil.getString("Enter pin : ");
-					user.transfer(trans, pin);
+					int transferType = MainUtil.getInt("Is the money transfer within Bank ?  (1-Yes) (2-No): ", 2);
+					if(transferType == 1) {
+						withinBank = true;
+					}
+					trans = MainUtil.getTransactionObj(withinBank);
+					user.transfer(trans, pin, withinBank);
 				} catch (PinNotSetException exc) {
-					String pin = MainUtil.getString("Enter PIN : ");
+					String pin = MainUtil.getString("Enter PIN to set : ");
 					try {
 						user.setPin(pin);
+						user.transfer(trans, pin, withinBank);
 					} catch (BankingException | InvalidInputException e) {
 						System.out.println(e.getMessage());
 					}

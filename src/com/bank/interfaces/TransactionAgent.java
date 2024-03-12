@@ -7,12 +7,12 @@ import com.bank.pojo.Transaction;
 
 public interface TransactionAgent {
 
-	void transfer(Transaction trans) throws PersistenceException;
+	void doTransaction(Transaction trans) throws PersistenceException;
 
-	long getTransBranch(long transId) throws PersistenceException;
+	long getTransactionBranch(long transId) throws PersistenceException;
 	
-	List<Transaction> getAccStatement(long accNum, int limit, int offset) throws PersistenceException;
+	List<Transaction> getAccountStatement(long accNum, int limit, int offset) throws PersistenceException;
 
-	List<Transaction> getTransStatement(long transId) throws PersistenceException;
+	List<Transaction> getTransactionStatement(long transId) throws PersistenceException;
 	
 }

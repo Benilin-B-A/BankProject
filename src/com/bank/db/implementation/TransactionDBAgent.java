@@ -33,7 +33,7 @@ public class TransactionDBAgent implements TransactionAgent {
 	}
 	
 	@Override
-	public void transfer(Transaction trans) throws PersistenceException {
+	public void doTransaction(Transaction trans) throws PersistenceException {
 		try (Connection connection = connect(); PreparedStatement st = connection.prepareStatement(TransactionTableQuery.transfer)) {
 			st.setLong(1, trans.getCustomerId());
 			st.setLong(2, trans.getTransactionId());
@@ -41,9 +41,10 @@ public class TransactionDBAgent implements TransactionAgent {
 			st.setLong(4, trans.getAmount());
 			st.setString(5, trans.getType());
 			st.setLong(6, trans.getTransAccNum());
-			st.setLong(7, trans.getOpeningBal());
-			st.setLong(8, trans.getClosingBal());
-			st.setString(9, trans.getDescription());
+			st.setLong(7, System.currentTimeMillis());
+			st.setLong(8, trans.getOpeningBal());
+			st.setLong(9, trans.getClosingBal());
+			st.setString(10, trans.getDescription());
 			st.executeUpdate();
 		} catch (SQLException exception) {
 			throw new PersistenceException("Error in transaction", exception);
@@ -51,7 +52,7 @@ public class TransactionDBAgent implements TransactionAgent {
 	}
 
 	@Override
-	public long getTransBranch(long transId) throws PersistenceException {
+	public long getTransactionBranch(long transId) throws PersistenceException {
 		try (Connection connection = connect();
 				PreparedStatement st = connection.prepareStatement(TransactionTableQuery.getTransBranch)){
 				st.setLong(1, transId);
@@ -70,13 +71,13 @@ public class TransactionDBAgent implements TransactionAgent {
 			List<Transaction> list = new ArrayList<>();
 			while (set.next()) {
 				Transaction trans = new Transaction();
-				trans.setTransactionId(set.getLong("TRANSACTION_ID"));
-				trans.setAmount(set.getLong("AMOUNT"));
-				trans.setType(set.getString("TYPE"));
-				trans.setTime(set.getTimestamp("TIME"));
-				trans.setOpeningBal(set.getLong("OPENING_BAL"));
-				trans.setClosingBal(set.getLong("CLOSING_BAL"));
-				trans.setDescription(set.getString("DESCRIPTION"));
+				trans.setTransactionId(set.getLong(2));
+				trans.setAmount(set.getLong(4));
+				trans.setType(set.getString(5));
+				trans.setTime(set.getLong(7));
+				trans.setOpeningBal(set.getLong(8));
+				trans.setClosingBal(set.getLong(9));
+				trans.setDescription(set.getString(10));
 				list.add(trans);
 			}
 			return list;
@@ -84,7 +85,7 @@ public class TransactionDBAgent implements TransactionAgent {
 	}
 
 	@Override
-	public List<Transaction> getAccStatement(long accNum, int limit, int offset) throws PersistenceException {
+	public List<Transaction> getAccountStatement(long accNum, int limit, int offset) throws PersistenceException {
 		try (Connection connection = connect();
 				PreparedStatement st = connection.prepareStatement(TransactionTableQuery.getAccountStatement)){
 				st.setLong(1, accNum);
@@ -97,7 +98,7 @@ public class TransactionDBAgent implements TransactionAgent {
 	}
 
 	@Override
-	public List<Transaction> getTransStatement(long transId) throws PersistenceException {
+	public List<Transaction> getTransactionStatement(long transId) throws PersistenceException {
 		try (Connection connection = connect();
 				PreparedStatement st = connection.prepareStatement(TransactionTableQuery.getTransStatement)){
 				st.setLong(1, transId);

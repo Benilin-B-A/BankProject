@@ -44,9 +44,9 @@ public class UserDBAgent implements UserAgent{
 	}
 
 	@Override
-	public boolean validateUserPresence(long userId) throws PersistenceException {
+	public boolean isUserPresent(long userId) throws PersistenceException {
 		try (Connection connection = connect(); 
-				PreparedStatement st = connection.prepareStatement(UserTableQuery.validateUser)){
+				PreparedStatement st = connection.prepareStatement(UserTableQuery.isUserPresent)){
 			st.setLong(1, userId);
 			try (ResultSet set = st.executeQuery()) {
 				set.next();
@@ -58,7 +58,7 @@ public class UserDBAgent implements UserAgent{
 	}
 
 	@Override
-	public int getAttempts(long userId) throws PersistenceException {
+	public int getAttempt(long userId) throws PersistenceException {
 		try (Connection connection = connect(); 
 				PreparedStatement st = connection.prepareStatement(UserTableQuery.getAttempts)){
 			st.setLong(1, userId);
@@ -84,13 +84,13 @@ public class UserDBAgent implements UserAgent{
 	}
 
 	@Override
-	public String getStatus(long userId) throws PersistenceException {
+	public int getStatus(long userId) throws PersistenceException {
 		try (Connection connection = connect(); 
 				PreparedStatement st = connection.prepareStatement(UserTableQuery.getStatus)){
 			st.setLong(1, userId);
 			try (ResultSet set = st.executeQuery()) {
 				set.next();
-				return set.getString(1);
+				return set.getInt(1);
 			}
 		} catch (SQLException exception) {
 			throw new PersistenceException("Couldn't fetch status",exception);
@@ -101,23 +101,22 @@ public class UserDBAgent implements UserAgent{
 	public void setStatus(long userId, Status status) throws PersistenceException {
 		try (Connection connection = connect(); 
 				PreparedStatement st = connection.prepareStatement(UserTableQuery.setStatus)){
-			st.setString(1, status.getState());
+			st.setInt(1, status.getState());
 			st.setLong(2, userId);
 			st.execute();
 		} catch (SQLException exception) {
 			throw new PersistenceException("Couldn't update status",exception);
 		}
 	}
-
 	
 	@Override
-	public String getUserType(long userId) throws PersistenceException {
+	public int getUserLevel(long userId) throws PersistenceException {
 		try (Connection connection = connect(); 
-				PreparedStatement st = connection.prepareStatement(UserTableQuery.getUserType)){
+				PreparedStatement st = connection.prepareStatement(UserTableQuery.getUserLevel)){
 			st.setLong(1, userId);
 			try (ResultSet set = st.executeQuery()) {
 				set.next();
-				return set.getString(1);
+				return set.getInt(1);
 			}
 		} catch (SQLException exception) {
 			throw new PersistenceException("Couldn't fetch user type",exception);
@@ -135,29 +134,5 @@ public class UserDBAgent implements UserAgent{
 			throw new PersistenceException("Couldn't update status",exception);
 		}
 	}
-	
-//	@Override
-//	public long addUser(User usr, String password) throws PersistenceException {
-//		try (Connection connection = connect();
-//				PreparedStatement statement = connection.prepareStatement(UserTableQuery.addUser)) {
-//			statement.setString(1, usr.getName());
-//			statement.setString(2, usr.getdOB());
-//			statement.setLong(3, usr.getPhone());
-//			statement.setString(4, usr.getMail());
-//			statement.setString(5, usr.getGender());
-//			statement.setString(6, usr.getUserType());
-//			statement.setString(7, usr.getAddress());
-//			statement.setString(8, password);
-//			statement.execute();
-//			try (PreparedStatement st = connection.prepareStatement(UserTableQuery.getLastInsertId);
-//					ResultSet set = st.executeQuery()) {
-//				set.next();
-//				return set.getLong(1);
-//			}
-//		} catch (SQLException exception) {
-//			throw new PersistenceException("Couldn't add user", exception);
-//		}
-//	}
-
 	
 }

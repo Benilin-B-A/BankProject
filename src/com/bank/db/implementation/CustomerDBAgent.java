@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.db.queries.CustomerTableQuery;
+import com.bank.enums.Status;
 import com.bank.interfaces.CustomerAgent;
 import com.bank.pojo.Customer;
 
@@ -43,25 +44,8 @@ public class CustomerDBAgent implements CustomerAgent {
 		}
 	}
 	
-//	@Override
-//	public long addCustomer(Customer cus, Account account, String password) throws PersistenceException {
-//		try (Connection connection = connect();
-//				PreparedStatement st = connection.prepareStatement(CustomerTableQuery.addCustomer)) {
-//			long id = userAgent.addUser(cus, password);
-//			st.setLong(1, id);
-//			st.setLong(2, cus.getAadharNum());
-//			st.setString(3, cus.getPanNum());
-//			st.execute();
-//			account.setUId(id);
-//			accAgent.addAccount(account);
-//			return id;
-//		} catch (SQLException exception) {
-//			throw new PersistenceException("Couldn't add Customer", exception);
-//		}
-//	}
-
 	@Override
-	public void changePin(String newPin, long userId) throws PersistenceException {
+	public void setPin(String newPin, long userId) throws PersistenceException {
 		try (Connection connection = connect(); 
 				PreparedStatement st = connection.prepareStatement(CustomerTableQuery.changePin)){
 			st.setString(1, newPin);
@@ -113,7 +97,7 @@ public class CustomerDBAgent implements CustomerAgent {
 				cus.setAddress(set.getString(4));
 				cus.setMail(set.getString(5));
 				cus.setPhone(set.getLong(6));
-				cus.setStatus(set.getString(7));
+				cus.setStatus(Status.getStatusByState(set.getInt(7)));
 				cus.setAadharNum(set.getLong(8));
 				cus.setPanNum(set.getString(9));
 				cus.setNoOfAcc(set.getInt(10));
@@ -123,4 +107,19 @@ public class CustomerDBAgent implements CustomerAgent {
 			throw new PersistenceException("Couldn't fetch customer details",exception);
 		}
 	}
+
+	@Override
+	public boolean isCustomerPresent(long cusId) throws PersistenceException {
+		try (Connection connection = connect();
+				PreparedStatement st = connection.prepareStatement(CustomerTableQuery.isCustomerPresent)) {
+			st.setLong(1, cusId);
+			try (ResultSet set = st.executeQuery()) {
+				set.next();
+				return set.getBoolean(1);
+			}
+		} catch (SQLException exception) {
+			throw new PersistenceException("Error in checking customer presence", exception);
+		}
+	}
+
 }

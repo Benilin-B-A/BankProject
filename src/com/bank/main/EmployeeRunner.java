@@ -32,10 +32,8 @@ public class EmployeeRunner {
 					long accNum = MainUtil.getLong("Enter account number : ");
 					long bal = user.getBalance(accNum);
 					System.out.println(bal);
-					run(user);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
-					run(user);
 				}
 				break;
 
@@ -45,10 +43,8 @@ public class EmployeeRunner {
 					long amount = MainUtil.getLong("Enter amount : ");
 					user.withdraw(accNum, amount);
 					System.out.println("Withdrawl successful");
-					run(user);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
-					run(user);
 				}
 				break;
 
@@ -59,10 +55,8 @@ public class EmployeeRunner {
 					long amount = MainUtil.getLong("Enter amount : ");
 					user.deposit(accNum, amount);
 					System.out.println("Deposit successful");
-					run(user);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
-					run(user);
 				}
 				break;
 
@@ -70,12 +64,15 @@ public class EmployeeRunner {
 
 				try {
 					long accNum = MainUtil.getLong("Enter sender's account number : ");
-					Transaction trans = MainUtil.getTransactionObj();
-					user.transfer(trans, accNum);
-					run(user);
+					int transferType = MainUtil.getInt("Is the money transfer within Bank ?  (1-Yes) (2-No): ", 2);
+					boolean withinBank = false;
+					if(transferType == 1) {
+						withinBank = true;
+					}
+					Transaction trans = MainUtil.getTransactionObj(withinBank);
+					user.transfer(trans, accNum, withinBank);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
-					run(user);
 				}
 				break;
 
@@ -88,7 +85,6 @@ public class EmployeeRunner {
 					break;
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
-					run(user);
 				}
 				break;
 

@@ -44,9 +44,9 @@ public class BranchDBAgent implements BranchAgent{
 	}
 
 	@Override
-	public boolean validateIFSC(String iFSC) throws PersistenceException {
+	public boolean isIFSCPresent(String iFSC) throws PersistenceException {
 		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(BranchTableQuery.validateIFSC)) {
+				PreparedStatement st = connection.prepareStatement(BranchTableQuery.isIFSCPresent)) {
 			st.setString(1, iFSC);
 			try(ResultSet set = st.executeQuery()){
 				set.next();
@@ -58,9 +58,9 @@ public class BranchDBAgent implements BranchAgent{
 	}
 
 	@Override
-	public boolean validateBranchId(long branchID) throws PersistenceException {
+	public boolean isBranchIdPresent(long branchID) throws PersistenceException {
 		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(BranchTableQuery.validateBranch)) {
+				PreparedStatement st = connection.prepareStatement(BranchTableQuery.isBranchPresent)) {
 			st.setLong(1, branchID);
 			try(ResultSet set = st.executeQuery()){
 				set.next();

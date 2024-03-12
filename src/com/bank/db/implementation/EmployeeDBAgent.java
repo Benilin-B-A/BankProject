@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.db.queries.EmployeeTableQuery;
+import com.bank.enums.Status;
 import com.bank.interfaces.EmployeeAgent;
 import com.bank.interfaces.UserAgent;
 import com.bank.persistence.util.PersistenceObj;
@@ -34,20 +35,6 @@ public class EmployeeDBAgent implements EmployeeAgent {
 	}
 
 	@Override
-	public boolean getAdminAccess(long userId) throws PersistenceException {
-		try (Connection connection = connect();
-				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.getAdminAccess)) {
-			st.setLong(1, userId);
-			try (ResultSet set = st.executeQuery()) {
-				set.next();
-				return set.getBoolean(1);
-			}
-		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't fetch user type", exception);
-		}
-	}
-
-	@Override
 	public long getBranchId(long userId) throws PersistenceException {
 		try (Connection connection = connect();
 				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.getBranchId)) {
@@ -57,24 +44,9 @@ public class EmployeeDBAgent implements EmployeeAgent {
 				return set.getLong(1);
 			}
 		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't fetch user type", exception);
+			throw new PersistenceException("Couldn't fetch branchId type", exception);
 		}
 	}
-
-//	@Override
-//	public long addEmployee(Employee emp, String pwd) throws PersistenceException {
-//		try (Connection connection = connect();
-//				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.addEmployee)) {
-//			long id = usAgent.addUser(emp, pwd);
-//			st.setLong(1, id);
-//			st.setLong(2, emp.getBranchID());
-//			st.setBoolean(3, emp.isAdmin());
-//			st.execute();
-//			return id;
-//		} catch (SQLException exception) {
-//			throw new PersistenceException("Error in adding Employee", exception);
-//		}
-//	}
 
 	@Override
 	public Employee getEmployee(long userId) throws PersistenceException {
@@ -90,27 +62,26 @@ public class EmployeeDBAgent implements EmployeeAgent {
 				emp.setAddress(set.getString(4));
 				emp.setMail(set.getString(5));
 				emp.setPhone(set.getLong(6));
-				emp.setStatus(set.getString(7));
+				emp.setStatus(Status.getStatusByState(set.getInt(7)));
 				emp.setBranchID(set.getLong(8));
-				emp.setAdmin(set.getBoolean(9));
 				return emp;
 			}
 		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't fetch customer details",exception);
+			throw new PersistenceException("Couldn't fetch employee details",exception);
 		}
 	}
 	
 	@Override
-	public boolean validateEmployee(long userId) throws PersistenceException{
+	public boolean isEmployeePresent(long userId) throws PersistenceException{
 		try (Connection connection = connect(); 
-				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.validateEmployeePresence)){
+				PreparedStatement st = connection.prepareStatement(EmployeeTableQuery.isEmployeePresent)){
 			st.setLong(1, userId);
 			try(ResultSet set = st.executeQuery()){
 				set.next();
 				return set.getBoolean(1);
 			}
 		} catch (SQLException exception) {
-			throw new PersistenceException("Couldn't fetch customer details",exception);
+			throw new PersistenceException("Couldn't check employee presence",exception);
 		}
 	}
 }

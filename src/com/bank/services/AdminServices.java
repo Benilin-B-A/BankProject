@@ -9,8 +9,10 @@ import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.enums.Status;
+import com.bank.enums.UserLevel;
 import com.bank.interfaces.AccountsAgent;
 import com.bank.interfaces.BranchAgent;
+import com.bank.interfaces.TransacAgent;
 import com.bank.persistence.util.PersistenceObj;
 import com.bank.pojo.Account;
 import com.bank.pojo.Branch;
@@ -20,7 +22,7 @@ import com.bank.pojo.Transaction;
 import com.bank.util.LogHandler;
 import com.bank.util.Validator;
 
-import trial.TransacOperations;
+
 
 public class AdminServices {
 
@@ -34,6 +36,7 @@ public class AdminServices {
 
 	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
 	private static BranchAgent branchAgent = PersistenceObj.getBranchAgent();
+	private static TransacAgent trAgnet = PersistenceObj.getTransacAgent();
 
 	public long getBalance(long aNum) throws BankingException {
 		AuthServices.validateAccountPresence(aNum);
@@ -48,10 +51,10 @@ public class AdminServices {
 		UserServices.deposit(accNum, amount);
 	}
 
-	public void transfer(Transaction trans, long accNum) throws BankingException {
+	public void transfer(Transaction trans, long accNum, boolean withinBank) throws BankingException {
 		AuthServices.validateAccount(accNum);
 		trans.setAccNumber(accNum);
-		UserServices.transfer(trans);
+		UserServices.transferMoney(trans, withinBank);
 	}
 
 	public void changePassword(String oldPass, String newPass) throws BankingException {
@@ -90,18 +93,19 @@ public class AdminServices {
 		try {
 			Validator.checkNull(emp);
 			String password = AuthServices.hashPassword(emp.getdOB());
-			emp.setUserType("Employee");
-			validateBranch(emp.getBranchID());
-			return TransacOperations.addEmployee(emp, password);
+			emp.setLevel(UserLevel.Employee);
+			isBranchPresent(emp.getBranchID());
+			return trAgnet.addEmployee(emp, password);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in adding Employee", exception);
+			exception.printStackTrace();
 			throw new BankingException("Couldn't add Employee");
 		}
 	}
 	
-	private boolean validateBranch(long branchID) throws BankingException {
+	private boolean isBranchPresent(long branchID) throws BankingException {
 		try {
-			if(branchAgent.validateBranchId(branchID)) {
+			if(branchAgent.isBranchIdPresent(branchID)) {
 				return true;
 			}
 			throw new BankingException("Invalid BranchId");
@@ -112,13 +116,13 @@ public class AdminServices {
 	}
 
 	public void addAccount(Account account, long branchId) throws BankingException {
-		validateBranch(branchId);
+		isBranchPresent(branchId);
 		account.setBranchId(branchId);
 		UserServices.addAccount(account);
 	}
 
 	public long addCustomer(Customer cus, Account acc, long branchId) throws BankingException {
-		validateBranch(branchId);
+		isBranchPresent(branchId);
 		acc.setBranchId(branchId);
 		return UserServices.addCustomer(cus, acc);
 		
@@ -129,7 +133,7 @@ public class AdminServices {
 		try {
 			String iFSC = branch.getIFSC();
 			Validator.validateAlphaNum(iFSC);
-			if(branchAgent.validateIFSC(iFSC)) {
+			if(branchAgent.isIFSCPresent(iFSC)) {
 				throw new BankingException("IFSC code already exists");
 			}			
 			branchAgent.addBranch(branch);

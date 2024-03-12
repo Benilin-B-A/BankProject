@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.enums.Status;
+import com.bank.enums.UserLevel;
 import com.bank.pojo.Account;
 import com.bank.pojo.Branch;
 import com.bank.pojo.Customer;
@@ -69,8 +70,13 @@ public class AdminRunner {
 
 				try {
 					long accNum = MainUtil.getLong("Enter sender's account number : ");
-					Transaction trans = MainUtil.getTransactionObj();
-					user.transfer(trans, accNum);
+					int transferType = MainUtil.getInt("Is the money transfer within Bank ?  (1-Yes) (2-No): ", 2);
+					boolean withinBank = false;
+					if(transferType == 1) {
+						withinBank = true;
+					}
+					Transaction trans = MainUtil.getTransactionObj(withinBank);
+					user.transfer(trans, accNum, withinBank);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
 				}
@@ -304,12 +310,13 @@ public class AdminRunner {
 		MainUtil.getUserDetails(user);
 		long branchID = MainUtil.getLong("Enter Branch Id : ");
 		((Employee) user).setBranchID(branchID);
-		int admin = MainUtil.getInt("Does the Employee have admin privileges (1-Yes) (2-No): ", 2);
-		boolean isAdmin = false;
-		if (admin == 1) {
-			isAdmin = true;
+		int empType = MainUtil.getInt("Does the Employee have admin privileges (1-Yes) (2-No): ", 2);
+		if (empType == 1) {
+			((Employee) user).setLevel(UserLevel.Admin);
 		}
-		((Employee) user).setAdmin(isAdmin);
+		else if (empType == 2) {
+			((Employee) user).setLevel(UserLevel.Employee);
+		}
 		return (Employee) user;
 	}
 	

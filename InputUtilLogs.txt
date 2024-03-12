@@ -1,78 +1,13 @@
-Mar 08, 2024 10:35:09 AM com.bank.main.MainUtil getUserDetails
-WARNING: Invalid mail
-com.bank.custom.exceptions.InvalidInputException: Invalid DOB
-	at BOB/com.bank.util.Validator.validateDOB(Validator.java:38)
-	at BOB/com.bank.main.MainUtil.getUserDetails(MainUtil.java:57)
-	at BOB/com.bank.main.MainUtil.getCustomer(MainUtil.java:42)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:178)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 10:36:00 AM com.bank.main.MainUtil getInt
+Mar 12, 2024 3:10:45 PM com.bank.main.MainUtil getInt
 WARNING: Incorrect Input...
 java.util.InputMismatchException
 	at java.base/java.util.Scanner.throwFor(Scanner.java:939)
 	at java.base/java.util.Scanner.next(Scanner.java:1594)
 	at java.base/java.util.Scanner.nextInt(Scanner.java:2258)
 	at java.base/java.util.Scanner.nextInt(Scanner.java:2212)
-	at BOB/com.bank.main.MainUtil.getInt(MainUtil.java:105)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:25)
+	at BOB/com.bank.main.MainUtil.getInt(MainUtil.java:109)
+	at BOB/com.bank.main.MainUtil.getAccount(MainUtil.java:73)
+	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:185)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 10:36:27 AM com.bank.main.MainUtil getUserDetails
-WARNING: Invalid mail
-com.bank.custom.exceptions.InvalidInputException: Invalid DOB
-	at BOB/com.bank.util.Validator.validateDOB(Validator.java:38)
-	at BOB/com.bank.main.MainUtil.getUserDetails(MainUtil.java:57)
-	at BOB/com.bank.main.MainUtil.getCustomer(MainUtil.java:42)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:178)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 10:38:57 AM com.bank.main.MainUtil getUserDetails
-WARNING: Invalid mail
-com.bank.custom.exceptions.InvalidInputException: Invalid DOB
-	at BOB/com.bank.util.Validator.validateDOB(Validator.java:38)
-	at BOB/com.bank.main.MainUtil.getUserDetails(MainUtil.java:57)
-	at BOB/com.bank.main.MainUtil.getCustomer(MainUtil.java:42)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:178)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 11:09:48 AM com.bank.main.MainUtil getInt
-WARNING: Incorrect Input...
-java.util.InputMismatchException
-	at java.base/java.util.Scanner.throwFor(Scanner.java:939)
-	at java.base/java.util.Scanner.next(Scanner.java:1594)
-	at java.base/java.util.Scanner.nextInt(Scanner.java:2258)
-	at java.base/java.util.Scanner.nextInt(Scanner.java:2212)
-	at BOB/com.bank.main.MainUtil.getInt(MainUtil.java:99)
-	at BOB/com.bank.main.MainUtil.getInt(MainUtil.java:103)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:33)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 11:12:24 AM com.bank.main.MainUtil getInt
-WARNING: Incorrect Input...
-java.util.InputMismatchException
-	at java.base/java.util.Scanner.throwFor(Scanner.java:939)
-	at java.base/java.util.Scanner.next(Scanner.java:1594)
-	at java.base/java.util.Scanner.nextInt(Scanner.java:2258)
-	at java.base/java.util.Scanner.nextInt(Scanner.java:2212)
-	at BOB/com.bank.main.MainUtil.getInt(MainUtil.java:99)
-	at BOB/com.bank.main.MainUtil.getInt(MainUtil.java:103)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:33)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-
-Mar 08, 2024 3:15:22 PM com.bank.main.MainUtil getLong
-WARNING: Incorrect Input...
-java.util.InputMismatchException
-	at java.base/java.util.Scanner.throwFor(Scanner.java:939)
-	at java.base/java.util.Scanner.next(Scanner.java:1594)
-	at java.base/java.util.Scanner.nextLong(Scanner.java:2373)
-	at java.base/java.util.Scanner.nextLong(Scanner.java:2328)
-	at BOB/com.bank.main.MainUtil.getLong(MainUtil.java:78)
-	at BOB/com.bank.main.Runner.login(Runner.java:67)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
 

@@ -44,10 +44,11 @@ public class CustomerServices {
 		return UserServices.getBalance(currentAcc);
 	}
 
-	public void withdraw(long amount, String pin) throws BankingException, InvalidInputException {
+	public boolean withdraw(long amount, String pin) throws BankingException, InvalidInputException {
 		if (isPinSet) {
 			AuthServices.authPin(userId, pin);
 			UserServices.withdraw(currentAcc, amount);
+			return true;
 		}
 		throw new PinNotSetException("Set TPIN to continue withdrawl");
 	}
@@ -56,11 +57,12 @@ public class CustomerServices {
 		UserServices.deposit(currentAcc, amount);
 	}
 
-	public void transfer(Transaction transaction, String pin) throws BankingException, InvalidInputException {
-		if (!isPinSet) {
+	public boolean transfer(Transaction transaction, String pin, boolean withinBank) throws BankingException, InvalidInputException {
+		if (isPinSet) {
 			AuthServices.authPin(userId, pin);
 			transaction.setAccNumber(currentAcc);
-			UserServices.transfer(transaction);
+			UserServices.transferMoney(transaction, withinBank);
+			return true;
 		}
 		throw new PinNotSetException("Set TPIN to continue transfer");
 		
@@ -78,7 +80,7 @@ public class CustomerServices {
 	public void setPin(String newPin) throws BankingException, InvalidInputException {
 		try {
 			Validator.validatePin(newPin);
-			cusAgent.changePin(newPin, userId);
+			cusAgent.setPin(AuthServices.hashPassword(newPin), userId);
 			isPinSet = true;
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Couldn't set pin", exception);

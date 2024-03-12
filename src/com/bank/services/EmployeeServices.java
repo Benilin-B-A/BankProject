@@ -66,10 +66,10 @@ public class EmployeeServices {
 		UserServices.deposit(accNum, amount);
 	}
 
-	public void transfer(Transaction trans, long accNum) throws BankingException {
+	public void transfer(Transaction trans, long accNum, boolean withinBank) throws BankingException {
 		validateEmpAccess(accNum);
 		trans.setAccNumber(accNum);
-		UserServices.transfer(trans);
+		UserServices.transferMoney(trans, withinBank);
 	}
 
 	public void changePassword(String oldPass, String newPass) throws BankingException {
@@ -87,7 +87,7 @@ public class EmployeeServices {
 
 	public List<Transaction> getTransStatement(long transId) throws BankingException {
 		try {
-			long branchId = tranAgent.getTransBranch(transId);
+			long branchId = tranAgent.getTransactionBranch(transId);
 			if (branchId == empAgent.getBranchId(userId)) {
 				return UserServices.getTransStatement(transId);
 			}

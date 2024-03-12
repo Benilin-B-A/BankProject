@@ -12,6 +12,8 @@ public class CustomerTableQuery {
 
 	public static String setAttempts = "update Tpin_Attempts set FAILED_ATTEMPTS = ? where CUSTOMER_ID = ?";
 
-	public static String getCustomerProfile = "select  NAME,DOB, GENDER, ADDRESS, EMAIL, PHONE, STATUS, AADHAR_NUMBER, PAN_NUMBER, NO_OF_ACC "
+	public static String getCustomerProfile = "select  NAME,DOB, GENDER, ADDRESS, EMAIL, PHONE, STATE, AADHAR_NUMBER, PAN_NUMBER, NO_OF_ACC "
 			+ "from Customer inner join User on User.ID = Customer.ID where Customer.ID = ?";
+
+	public static String isCustomerPresent = "select exists (select * from Accounts where CUSTOMER_ID = ?)";
 }
