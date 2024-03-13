@@ -11,6 +11,15 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/benlin-pt7278/Downloads/mysql-connector-j-8.3.0.jar" sourcepath="/home/benlin-pt7278/Downloads/mysql-connector-j-8.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="/home/benlin-pt7278/Downloads/mysql-connector-j-8.3.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/benlin-pt7278/Downloads/jar_files/json-1.6.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

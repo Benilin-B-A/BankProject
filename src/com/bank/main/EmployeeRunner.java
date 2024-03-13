@@ -1,13 +1,13 @@
 package com.bank.main;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.enums.Status;
 import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
-import com.bank.pojo.Employee;
 import com.bank.pojo.Transaction;
 import com.bank.services.EmployeeServices;
 
@@ -92,21 +92,21 @@ public class EmployeeRunner {
 
 				int statementChoice = MainUtil.getInt("1) Fetch statements using Account Number"
 						+ "\n3) Fetch statements using Transaction ID" + "\nEnter Choice : ", 3);
-				List<Transaction> list = null;
+				JSONArray trans = null;
 				switch (statementChoice) {
 				case 1:
 					try {
 						long accNum = MainUtil.getLong("Enter account number: ");
 						boolean continueStatementView = true;
-						list = user.getAccountStatement(accNum);
+						trans = user.getAccountStatement(accNum);
 						while (continueStatementView) {
-							MainUtil.printList(list);
-							MainUtil.filter(list);
+							MainUtil.printTransactions(trans);
+//							MainUtil.filter(trans);
 							int pageChoice = MainUtil.getInt("Pages(5) : Enter page to view or enter 6 to exit : ", 6);
 							if (pageChoice == 6) {
 								continueStatementView = false;
 							} else {
-								list = user.getAccountStatement(accNum, pageChoice);
+								trans = user.getAccountStatement(accNum, pageChoice);
 							}
 						}
 					} catch (BankingException exception) {
@@ -119,8 +119,8 @@ public class EmployeeRunner {
 				case 2:
 					try {
 						long transId = MainUtil.getLong("Enter TransactionId : ");
-						list = user.getTransStatement(transId);
-						MainUtil.printList(list);
+						trans = user.getTransStatement(transId);
+						MainUtil.printTransactions(trans);
 					} catch (BankingException exception) {
 						System.out.println(exception.getMessage());
 					}
@@ -130,7 +130,7 @@ public class EmployeeRunner {
 			case 7:
 
 				long accNum = MainUtil.getLong("Enter Account number : ");
-				Account acc;
+				JSONObject acc;
 				try {
 					acc = user.getAccount(accNum);
 					System.out.println(acc);
@@ -203,7 +203,7 @@ public class EmployeeRunner {
 
 				long cusId = MainUtil.getLong("Enter customer Id : ");
 				try {
-					Customer cus = user.getCustomerDetails(cusId);
+					JSONObject cus = user.getCustomerDetails(cusId);
 					System.out.println(cus);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
@@ -214,7 +214,7 @@ public class EmployeeRunner {
 
 				long empId = MainUtil.getLong("Enter customer Id : ");
 				try {
-					Employee emp = user.getEmployeeDetails(empId);
+					JSONObject emp = user.getEmployeeDetails(empId);
 					System.out.println(emp);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());

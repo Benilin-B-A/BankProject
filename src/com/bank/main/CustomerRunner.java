@@ -1,11 +1,11 @@
 package com.bank.main;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.custom.exceptions.PinNotSetException;
-import com.bank.pojo.Account;
 import com.bank.pojo.Transaction;
 import com.bank.services.CustomerServices;
 
@@ -70,7 +70,7 @@ public class CustomerRunner {
 				try {
 					String pin = MainUtil.getString("Enter pin : ");
 					int transferType = MainUtil.getInt("Is the money transfer within Bank ?  (1-Yes) (2-No): ", 2);
-					if(transferType == 1) {
+					if (transferType == 1) {
 						withinBank = true;
 					}
 					trans = MainUtil.getTransactionObj(withinBank);
@@ -116,15 +116,15 @@ public class CustomerRunner {
 			case 7:
 				try {
 					boolean continueStatementView = true;
-					List<Transaction> list = user.getAccountStatement();
+					JSONArray transactions = user.getAccountStatement();
 					while (continueStatementView) {
-						MainUtil.printList(list);
-						MainUtil.filter(list);
+						MainUtil.printTransactions(transactions);
+//						MainUtil.filter(transactions);
 						int pageChoice = MainUtil.getInt("Pages(5) : Enter page to view or enter 6 to exit : ", 6);
 						if (pageChoice == 6) {
 							continueStatementView = false;
 						} else {
-							list = user.getAccountStatement(pageChoice);
+							transactions = user.getAccountStatement(pageChoice);
 						}
 					}
 				} catch (BankingException exception) {
@@ -145,7 +145,7 @@ public class CustomerRunner {
 			case 9:
 
 				try {
-					Account acc = user.getAccount();
+					JSONObject acc = user.getAccount();
 					System.out.println(acc);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());

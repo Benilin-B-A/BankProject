@@ -4,10 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.json.JSONArray;
 
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.enums.AccountType;
@@ -15,7 +16,6 @@ import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
 import com.bank.pojo.Transaction;
 import com.bank.pojo.User;
-import com.bank.util.Filter;
 import com.bank.util.LogHandler;
 import com.bank.util.Validator;
 
@@ -142,30 +142,32 @@ public class MainUtil {
 		}
 	}
 
-	public static void printList(List<Transaction> list) {
-		list.forEach(e -> System.out.println(e));
-	}
-
-	public static List<Transaction> filter(List<Transaction> list) {
-		List<Transaction> filteredList = null;
-		int filterChoice = MainUtil
-				.getInt("Filter transactions\n1) By Date\n2) By Type " + "\n3) Don't filter\nEnter choice : ", 3);
-
-		switch (filterChoice) {
-		case 1:
-			Date date = MainUtil.getDate();
-			filteredList = Filter.filterByDate(list, date);
-			break;
-
-		case 2:
-			String type = MainUtil.getType();
-			filteredList = Filter.filterByType(list, type);
-			break;
-
-		case 3:
-			break;
-
+	public static void printTransactions(JSONArray arr) {
+		for(int i = 0; i<arr.length(); i++) {
+			System.out.println(arr.getJSONObject(i));
 		}
-		return filteredList;
 	}
+
+//	public static void filter(JSONArray trans) {
+//		int filterChoice = MainUtil
+//				.getInt("Filter transactions\n1) By Date\n2) By Type " + "\n3) Don't filter\nEnter choice : ", 3);
+//
+//		switch (filterChoice) {
+//		case 1:
+//			Date date = MainUtil.getDate();
+//			Filter.filterByDate(trans, date);
+//			printTransactions(trans);
+//			break;
+//
+//		case 2:
+//			String type = MainUtil.getType();
+//			Filter.filterByType(trans, type);
+//			printTransactions(trans);
+//			break;
+//
+//		case 3:
+//			break;
+//
+//		}
+//	}
 }

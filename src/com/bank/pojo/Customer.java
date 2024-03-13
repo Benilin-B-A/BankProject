@@ -2,36 +2,36 @@ package com.bank.pojo;
 
 public class Customer extends User {
 
-	private long aadharNum;
-	private String panNum;
-	private int noOfAcc;
+	private long aadharNumber;
+	private String panNumber;
+	private int numberOfAccounts;
 
 	public long getAadharNum() {
-		return aadharNum;
+		return aadharNumber;
 	}
 
 	public void setAadharNum(long aadharNum) {
-		this.aadharNum = aadharNum;
+		this.aadharNumber = aadharNum;
 	}
 
 	public String getPanNum() {
-		return panNum;
+		return panNumber;
 	}
 
 	public void setPanNum(String panNum) {
-		this.panNum = panNum;
+		this.panNumber = panNum;
 	}
 
 	public void setNoOfAcc(int noOfAcc) {
-		this.noOfAcc = noOfAcc;
+		this.numberOfAccounts = noOfAcc;
 	}
 
 	public int getNoOfAcc() {
-		return this.noOfAcc;
+		return this.numberOfAccounts;
 	}
 
 	public String toString() {
-		return (super.toString() + "\nAadhar Num : " + this.aadharNum + "\nPan Num : " + this.panNum +
-				"\nNoOfAcc : " + this.noOfAcc);
+		return (super.toString() + "\nAadhar Num : " + this.aadharNumber + "\nPan Num : " + this.panNumber +
+				"\nNoOfAcc : " + this.numberOfAccounts);
 	}
 }

@@ -153,6 +153,7 @@ public class AuthServices {
 			}
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Error in validating user", exception);
+			exception.printStackTrace();
 			throw new BankingException("Couldn't validate user");
 		}
 	}

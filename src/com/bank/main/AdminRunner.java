@@ -1,7 +1,7 @@
 package com.bank.main;
 
-import java.util.List;
-import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
@@ -98,7 +98,7 @@ public class AdminRunner {
 				int statementChoice = MainUtil.getInt("1) Fetch statements using Account Number"
 						+ "\n3) Fetch statements using Transaction ID" + "\nEnter Choice : ", 3);
 
-				List<Transaction> list = null;
+				JSONArray transactions = null;
 
 				switch (statementChoice) {
 
@@ -106,15 +106,15 @@ public class AdminRunner {
 					try {
 						long accNum = MainUtil.getLong("Enter account number: ");
 						boolean continueStatementView = true;
-						list = user.getAccountStatement(accNum);
+						transactions = user.getAccountStatement(accNum);
 						while (continueStatementView) {
-							MainUtil.printList(list);
-							MainUtil.filter(list);
+							MainUtil.printTransactions(transactions);
+//							MainUtil.filter(transactions);
 							int pageChoice = MainUtil.getInt("Pages(5) : Enter page to view or enter 6 to exit : ", 6);
 							if (pageChoice == 6) {
 								continueStatementView = false;
 							} else {
-								list = user.getAccountStatement(accNum, pageChoice);
+								transactions = user.getAccountStatement(accNum, pageChoice);
 							}
 						}
 					} catch (BankingException exception) {
@@ -127,8 +127,8 @@ public class AdminRunner {
 				case 2:
 					try {
 						long transId = MainUtil.getLong("Enter TransactionId : ");
-						list = user.getTransStatement(transId);
-						MainUtil.printList(list);
+						transactions = user.getTransStatement(transId);
+						MainUtil.printTransactions(transactions);
 					} catch (BankingException exception) {
 						System.out.println(exception.getMessage());
 					}
@@ -143,9 +143,8 @@ public class AdminRunner {
 
 				case 1:
 					long accNum = MainUtil.getLong("Enter Account number : ");
-					Account acc;
 					try {
-						acc = user.getAccount(accNum);
+						JSONObject acc = user.getAccount(accNum);
 						System.out.println(acc);
 					} catch (BankingException exception) {
 						System.out.println(exception.getMessage());
@@ -154,10 +153,9 @@ public class AdminRunner {
 
 				case 2:
 					long customerId = MainUtil.getLong("Enter customer Id : ");
-					Map<Long, Account> map;
 					try {
-						map = user.getAccounts(customerId);
-						System.out.println(map);
+						JSONObject obj = user.getAccounts(customerId);
+						System.out.println(obj);
 					} catch (BankingException exception) {
 						System.out.println(exception.getMessage());
 					}
@@ -278,7 +276,7 @@ public class AdminRunner {
 
 				long cusId = MainUtil.getLong("Enter customer Id : ");
 				try {
-					Customer cus = user.getCustomerDetails(cusId);
+					JSONObject cus = user.getCustomerDetails(cusId);
 					System.out.println(cus);
 				} catch (BankingException exception) {
 					System.out.println(exception.getMessage());
@@ -289,7 +287,7 @@ public class AdminRunner {
 
 				long empId = MainUtil.getLong("Enter Employee Id : ");
 				try {
-					Employee emp = user.getEmployeeDetails(empId);
+					JSONObject emp = user.getEmployeeDetails(empId);
 					System.out.println(emp);
 				} catch (BankingException exception) {
 					exception.printStackTrace();

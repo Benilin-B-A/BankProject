@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.bank.adapter.JSONAdapter;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.custom.exceptions.PersistenceException;
@@ -156,52 +160,56 @@ public abstract class UserServices {
 		}
 	}
 
-	static List<Transaction> getAccountStatement(long accNum, int page) throws BankingException {
+	static JSONArray getAccountStatement(long accNum, int page) throws BankingException {
 		try {
 			AuthServices.validateAccount(accNum);
 			int limit = 10;
 			int offset = limit * (page - 1);
-			return tranAgent.getAccountStatement(accNum, limit, offset);
+			List<Transaction> list = tranAgent.getAccountStatement(accNum, limit, offset);
+			return JSONAdapter.transactionTOJson(list);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Couldn't fetch account statement", exception);
 			throw new BankingException("Couldn't fetch account statement", exception);
 		}
 	}
 
-	public static List<Transaction> getTransStatement(long transId) throws BankingException {
+	public static JSONArray getTransStatement(long transId) throws BankingException {
 		try {
-			return tranAgent.getTransactionStatement(transId);
+			List<Transaction> list = tranAgent.getTransactionStatement(transId);
+			return JSONAdapter.transactionTOJson(list);
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Couldn't fetch transaction statement", exception);
 			throw new BankingException("Couldn't fetch transaction statement", exception);
 		}
 	}
 
-	static Account getAccountDetails(long accNum) throws BankingException {
+	static JSONObject getAccountDetails(long accNum) throws BankingException {
 		try {
 			AuthServices.validateAccount(accNum);
-			return accAgent.getAccount(accNum);
+			Account acc = accAgent.getAccount(accNum);
+			return JSONAdapter.objToJSONObject(acc);
 		} catch (PersistenceException exception) {
 			logger.log(Level.INFO, "Couldn't fetch account", exception);
 			throw new BankingException("Couldn't fetch Account for account number : " + accNum, exception);
 		}
 	}
 
-	static Customer getCustomerDetails(long userId) throws BankingException {
+	static JSONObject getCustomerDetails(long userId) throws BankingException {
 		try {
-			AuthServices.validateUserPresence(userId);
 			AuthServices.validateCustomer(userId);
-			return cusAgent.getCustomer(userId);
+			Customer customer = cusAgent.getCustomer(userId);
+			return JSONAdapter.objToJSONObject(customer);
 		} catch (PersistenceException exception) {
 			logger.log(Level.INFO, "Couldn't fetch customer", exception);
 			throw new BankingException("Couldn't fetch Customer for userId : " + userId, exception);
 		}
 	}
 
-	static Employee getEmployeeDetails(long userId) throws BankingException {
+	static JSONObject getEmployeeDetails(long userId) throws BankingException {
 		try {
 			if (empAgent.isEmployeePresent(userId)) {
-				return empAgent.getEmployee(userId);
+				Employee employee = empAgent.getEmployee(userId);
+				return JSONAdapter.objToJSONObject(employee);
 			}
 			throw new BankingException("Invalid Employee Id");
 		} catch (PersistenceException exception) {

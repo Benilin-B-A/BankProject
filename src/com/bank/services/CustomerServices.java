@@ -1,8 +1,10 @@
 package com.bank.services;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
@@ -11,7 +13,6 @@ import com.bank.custom.exceptions.PinNotSetException;
 import com.bank.interfaces.AccountsAgent;
 import com.bank.interfaces.CustomerAgent;
 import com.bank.persistence.util.PersistenceObj;
-import com.bank.pojo.Account;
 import com.bank.pojo.Transaction;
 import com.bank.util.LogHandler;
 import com.bank.util.Validator;
@@ -88,11 +89,11 @@ public class CustomerServices {
 		}
 	}
 
-	public List<Transaction> getAccountStatement() throws BankingException {
+	public JSONArray getAccountStatement() throws BankingException {
 		return getAccountStatement(1);
 	}
 
-	public List<Transaction> getAccountStatement(int page) throws BankingException {
+	public JSONArray getAccountStatement(int page) throws BankingException {
 		return UserServices.getAccountStatement(currentAcc, page);
 	}
 
@@ -117,7 +118,7 @@ public class CustomerServices {
 		throw new BankingException("The entered account is already the primary account");
 	}
 
-	public Account getAccount() throws BankingException {
+	public  JSONObject getAccount() throws BankingException {
 		return UserServices.getAccountDetails(currentAcc);
 	}
 

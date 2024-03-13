@@ -4,27 +4,27 @@ import com.bank.util.TimeUtil;
 
 public class Transaction {
 
-	private long accNumber;
-	private long transAccNum;
+	private long accountNumber;
+	private long transactionAccountNumber;
 	private String iFSC;
 	private long amount;
 	private String description;
 	private long customerId;
 
 	public long getAccNumber() {
-		return accNumber;
+		return accountNumber;
 	}
 
 	public void setAccNumber(long accNumber) {
-		this.accNumber = accNumber;
+		this.accountNumber = accNumber;
 	}
 
 	public long getTransAccNum() {
-		return transAccNum;
+		return transactionAccountNumber;
 	}
 
 	public void setTransAccNum(long transAccNum) {
-		this.transAccNum = transAccNum;
+		this.transactionAccountNumber = transAccNum;
 	}
 
 	public String getiFSC() {

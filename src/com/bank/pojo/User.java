@@ -1,40 +1,42 @@
 package com.bank.pojo;
 
-import com.bank.enums.UserLevel;
 import com.bank.enums.Status;
+import com.bank.enums.UserLevel;
 
 public abstract class User {
 
-	protected long iD;
+	protected long userId;
 	protected String name;
 	protected String dOB;
 	protected long phone;
 	protected String eMail;
 	protected String gender;
-	protected Status status;
+	protected Status userStatus;
 	protected String address;
 	protected UserLevel userLevel;
 	
 	
 	public String toString() {
 		return ("Name : " + this.name + "\nDOB : " + this.dOB + "\nGender : " + this.gender + "\nAddress : "
-				+ this.eMail + "\nPhone : " + this.phone + "\nStatus : " + this.status + "\nAddress : ");
+				+ this.eMail + "\nPhone : " + this.phone + "\nStatus : " + this.userStatus + "\nAddress : ");
 	}
 	
+	@SuppressWarnings("exports")
 	public void setLevel(UserLevel level) {
 		userLevel = level;
 	}
 	
+	@SuppressWarnings("exports")
 	public UserLevel getLevel() {
 		return this.userLevel;
 	}
 	
 	public long getID() {
-		return iD;
+		return userId;
 	}
 
 	public void setID(long iD) {
-		this.iD = iD;
+		this.userId = iD;
 	}
 
 	public String getName() {
@@ -77,12 +79,14 @@ public abstract class User {
 		this.gender = gender;
 	}
 
+	@SuppressWarnings("exports")
 	public Status getStatus() {
-		return status;
+		return userStatus;
 	}
 
+	@SuppressWarnings("exports")
 	public void setStatus(Status status) {
-		this.status = status;
+		this.userStatus = status;
 	}
 
 	public String getAddress() {

@@ -2,17 +2,17 @@ package com.bank.pojo;
 
 public class Branch {
 	
-	private long id;
+	private long branchId;
 	private String branchName;
 	private String address;
-	private String iFSC;
+	private String branchIFSC;
 
 	public long getId() {
-		return id;
+		return branchId;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.branchId = id;
 	}
 
 	public String getBranchName() {
@@ -32,10 +32,10 @@ public class Branch {
 	}
 
 	public String getIFSC() {
-		return iFSC;
+		return branchIFSC;
 	}
 
 	public void setIFSC(String iFSC) {
-		this.iFSC = iFSC;
+		this.branchIFSC = iFSC;
 	}
 }

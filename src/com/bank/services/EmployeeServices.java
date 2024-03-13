@@ -1,8 +1,10 @@
 package com.bank.services;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.PersistenceException;
@@ -13,7 +15,6 @@ import com.bank.interfaces.TransactionAgent;
 import com.bank.persistence.util.PersistenceObj;
 import com.bank.pojo.Account;
 import com.bank.pojo.Customer;
-import com.bank.pojo.Employee;
 import com.bank.pojo.Transaction;
 import com.bank.util.LogHandler;
 
@@ -76,16 +77,16 @@ public class EmployeeServices {
 		UserServices.changePassword(userId, oldPass, newPass);
 	}
 
-	public List<Transaction> getAccountStatement(long accNum) throws BankingException {
+	public JSONArray getAccountStatement(long accNum) throws BankingException {
 		return getAccountStatement(accNum, 1);
 	}
 
-	public List<Transaction> getAccountStatement(long accNum, int page) throws BankingException {
+	public JSONArray getAccountStatement(long accNum, int page) throws BankingException {
 		validateEmpAccess(accNum);
 		return UserServices.getAccountStatement(accNum, page);
 	}
 
-	public List<Transaction> getTransStatement(long transId) throws BankingException {
+	public JSONArray getTransStatement(long transId) throws BankingException {
 		try {
 			long branchId = tranAgent.getTransactionBranch(transId);
 			if (branchId == empAgent.getBranchId(userId)) {
@@ -98,7 +99,7 @@ public class EmployeeServices {
 		}
 	}
 
-	public Account getAccount(long accNum) throws BankingException {
+	public JSONObject getAccount(long accNum) throws BankingException {
 		validateEmpAccess(accNum);
 		return UserServices.getAccountDetails(accNum);
 	}
@@ -123,11 +124,11 @@ public class EmployeeServices {
 		UserServices.closeAcc(accNumber);
 	}
 
-	public Customer getCustomerDetails(long cusId) throws BankingException {
+	public JSONObject getCustomerDetails(long cusId) throws BankingException {
 		return UserServices.getCustomerDetails(cusId);
 	}
 
-	public Employee getEmployeeDetails(long empId) throws BankingException {
+	public JSONObject getEmployeeDetails(long empId) throws BankingException {
 		return UserServices.getEmployeeDetails(empId);
 	}
 }

@@ -1,10 +1,13 @@
 package com.bank.services;
 
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.bank.adapter.JSONAdapter;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.custom.exceptions.PersistenceException;
@@ -61,28 +64,29 @@ public class AdminServices {
 		UserServices.changePassword(userId, oldPass, newPass);
 	}
 
-	public List<Transaction> getAccountStatement(long accNum) throws BankingException {
+	public JSONArray getAccountStatement(long accNum) throws BankingException {
 		return getAccountStatement(accNum, 1);
 	}
 	
-	public List<Transaction> getAccountStatement(long accNum, int page) throws BankingException {
+	public JSONArray getAccountStatement(long accNum, int page) throws BankingException {
 		return UserServices.getAccountStatement(accNum, page);
 
 	}
 
-	public List<Transaction> getTransStatement(long transId) throws BankingException {
+	public JSONArray getTransStatement(long transId) throws BankingException {
 		return UserServices.getTransStatement(transId);
 	}
 
-	public Account getAccount(long accNum) throws BankingException{
+	public JSONObject getAccount(long accNum) throws BankingException{
 		AuthServices.validateAccount(accNum);
 		return UserServices.getAccountDetails(accNum);
 	}
 
-	public Map<Long, Account> getAccounts(long customerId) throws BankingException {
+	public JSONObject getAccounts(long customerId) throws BankingException {
 		try {
 			AuthServices.validateCustomer(customerId);
-			return accAgent.getAccounts(customerId);
+			Map<Long, Account> map = accAgent.getAccounts(customerId);
+			return JSONAdapter.mapToJSON(map);
 		} catch (PersistenceException exception) {
 			logger.log(Level.INFO, "Couldn't fetch accounts", exception);
 			throw new BankingException("Couldn't fetch accounts for customer ID : " + customerId, exception);
@@ -160,12 +164,11 @@ public class AdminServices {
 		UserServices.closeAcc(accNum);
 	}
 
-	public Customer getCustomerDetails(long cusId) throws BankingException {
+	public JSONObject getCustomerDetails(long cusId) throws BankingException {
 		return UserServices.getCustomerDetails(cusId);
 	}
 
-	public Employee getEmployeeDetails(long empId) throws BankingException{
+	public JSONObject getEmployeeDetails(long empId) throws BankingException{
 		return UserServices.getEmployeeDetails(empId);
 	}
-	
 }

@@ -6,21 +6,21 @@ import com.bank.util.TimeUtil;
 
 public class Account {
 
-	private long uId;
-	private long accNum;
+	private long userId;
+	private long accountNumber;
 	private long balance;
-	private AccountType type;
+	private AccountType accounType;
 	private Status status;
 	private long branchId;
 	private long openedOn;
 	private boolean primary;
 
 	public long getUId() {
-		return uId;
+		return userId;
 	}
 
 	public void setUId(long uId) {
-		this.uId = uId;
+		this.userId = uId;
 	}
 
 	public boolean isPrimary() {
@@ -32,11 +32,11 @@ public class Account {
 	}
 
 	public long getAccNum() {
-		return accNum;
+		return accountNumber;
 	}
 
 	public void setAccNum(long accNum) {
-		this.accNum = accNum;
+		this.accountNumber = accNum;
 	}
 
 	public long getBalance() {
@@ -47,18 +47,22 @@ public class Account {
 		this.balance = balance;
 	}
 
+	@SuppressWarnings("exports")
 	public AccountType getType() {
-		return type;
+		return accounType;
 	}
 
+	@SuppressWarnings("exports")
 	public void setType(AccountType type) {
-		this.type = type;
+		this.accounType = type;
 	}
 
+	@SuppressWarnings("exports")
 	public Status getStatus() {
 		return status;
 	}
 
+	@SuppressWarnings("exports")
 	public void setStatus(Status status) {
 		this.status = status;
 	}
@@ -80,8 +84,8 @@ public class Account {
 	}
 
 	public String toString() {
-		return ("Customer ID : " + this.uId + " | Account Number : " + this.accNum + " | Balance : " + this.balance
+		return ("Customer ID : " + this.userId + " | Account Number : " + this.accountNumber + " | Balance : " + this.balance
 				+ " | Branch ID : " + this.branchId + " | Opened On : " + TimeUtil.getDateTime(this.openedOn)
-				+ " | Status : " + this.status + " | Type : " + this.type);
+				+ " | Status : " + this.status + " | Type : " + this.accounType);
 	}
 }

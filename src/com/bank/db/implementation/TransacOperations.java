@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.db.queries.AccountsTableQuery;
@@ -17,15 +18,15 @@ import com.bank.pojo.Customer;
 import com.bank.pojo.Employee;
 import com.bank.pojo.User;
 
-public class TransacOperations implements TransacAgent{
-	
+public class TransacOperations implements TransacAgent {
+
 	private TransacOperations() {
 	}
-	
-	private static class TransacDBAgentHolder{
-		private final static TransacOperations trAgent = new TransacOperations(); 
+
+	private static class TransacDBAgentHolder {
+		private final static TransacOperations trAgent = new TransacOperations();
 	}
-	
+
 	public static TransacOperations getTransacDBAgent() {
 		return TransacDBAgentHolder.trAgent;
 	}
@@ -38,7 +39,7 @@ public class TransacOperations implements TransacAgent{
 	@Override
 	public long addCustomer(Customer customer, Account account, String password) throws PersistenceException {
 		Connection connection = null;
-		try{
+		try {
 			connection = connect();
 			connection.setAutoCommit(false);
 			long id = addUser(connection, customer, password);
@@ -54,13 +55,17 @@ public class TransacOperations implements TransacAgent{
 				throw new PersistenceException("Couldn't complete adding customer", excep);
 			}
 			throw new PersistenceException("Error in adding Customer", exception);
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {}
 		}
 	}
-	
+
 	@Override
 	public long addEmployee(Employee employee, String password) throws PersistenceException {
 		Connection connection = null;
-		try{
+		try {
 			connection = connect();
 			connection.setAutoCommit(false);
 			long id = addUser(connection, employee, password);
@@ -74,19 +79,22 @@ public class TransacOperations implements TransacAgent{
 				throw new PersistenceException("Couldn't complete adding customer", excep);
 			}
 			throw new PersistenceException("Error in adding Employee", exception);
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {}
 		}
 	}
 
-	
 	@Override
-	public  void addAccount(Account account) throws PersistenceException{
+	public void addAccount(Account account) throws PersistenceException {
 		try (Connection connection = connect()) {
 			addAccount(connection, account);
 		} catch (SQLException exception) {
 			throw new PersistenceException("Error in adding Account", exception);
 		}
 	}
-	
+
 	private static void addAccount(Connection connection, Account account) throws SQLException {
 		try (PreparedStatement st = connection.prepareStatement(AccountsTableQuery.addAccount)) {
 			st.setLong(1, account.getUId());
@@ -104,7 +112,7 @@ public class TransacOperations implements TransacAgent{
 			st.setLong(2, customer.getAadharNum());
 			st.setString(3, customer.getPanNum());
 			st.execute();
-		} 
+		}
 	}
 
 	public static void addEmployee(Connection con, Employee emp, long id) throws SQLException {
@@ -114,9 +122,10 @@ public class TransacOperations implements TransacAgent{
 			st.execute();
 		}
 	}
-	
+
 	private static long addUser(Connection connection, User usr, String password) throws SQLException {
-		try (PreparedStatement statement = connection.prepareStatement(UserTableQuery.addUser, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+		try (PreparedStatement statement = connection.prepareStatement(UserTableQuery.addUser,
+				Statement.RETURN_GENERATED_KEYS)) {
 			statement.setString(1, usr.getName());
 			statement.setString(2, usr.getdOB());
 			statement.setLong(3, usr.getPhone());
@@ -126,12 +135,11 @@ public class TransacOperations implements TransacAgent{
 			statement.setString(7, usr.getAddress());
 			statement.setString(8, password);
 			statement.executeUpdate();
-			try(ResultSet set = statement.getGeneratedKeys()){
+			try (ResultSet set = statement.getGeneratedKeys()) {
 				set.next();
 				return set.getLong(1);
 			}
 		}
 	}
-
 
 }

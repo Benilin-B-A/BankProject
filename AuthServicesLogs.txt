@@ -1,237 +1,70 @@
-Mar 08, 2024 8:19:44 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:19:50 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:20:07 PM com.bank.services.AuthServices login
-WARNING: User id : 1blocked exceeding login attempt limit
-Mar 08, 2024 8:20:43 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:20:53 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:20:58 PM com.bank.services.AuthServices login
-WARNING: User id : 1blocked exceeding login attempt limit
-Mar 08, 2024 8:21:14 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:21:46 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:22:04 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 08, 2024 8:26:58 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 2
-Mar 08, 2024 9:40:50 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 09, 2024 11:31:53 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 1
-Mar 12, 2024 2:44:03 PM com.bank.services.AuthServices validateUser
-SEVERE: Couldn't validate user
-com.bank.custom.exceptions.PersistenceException: Couldn't fetch status
-	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:96)
-	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:169)
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
+Mar 13, 2024 2:10:35 PM com.bank.services.AuthServices validateUserPresence
+SEVERE: Error in validating user
+com.bank.custom.exceptions.PersistenceException: Couldn't validate user
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:56)
+	at BOB/com.bank.services.AuthServices.validateUserPresence(AuthServices.java:150)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:162)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:29)
 	at BOB/com.bank.main.Runner.login(Runner.java:71)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATE' in 'field list'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
-	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:91)
-	... 5 more
+Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/BankDB
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:702)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at BOB/com.bank.db.implementation.UserDBAgent.connect(UserDBAgent.java:28)
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:48)
+	... 6 more
 
-Mar 12, 2024 2:45:27 PM com.bank.services.AuthServices validateUser
-SEVERE: Couldn't validate user
-com.bank.custom.exceptions.PersistenceException: Couldn't fetch status
-	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:96)
-	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:169)
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
-	at BOB/com.bank.main.Runner.login(Runner.java:72)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATE' in 'field list'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
-	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:91)
-	... 5 more
-
-Mar 12, 2024 2:47:00 PM com.bank.services.AuthServices validateUser
-SEVERE: Couldn't validate user
-com.bank.custom.exceptions.PersistenceException: Couldn't fetch status
-	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:96)
-	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:169)
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:30)
+Mar 13, 2024 2:10:51 PM com.bank.services.AuthServices validateUserPresence
+SEVERE: Error in validating user
+com.bank.custom.exceptions.PersistenceException: Couldn't validate user
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:56)
+	at BOB/com.bank.services.AuthServices.validateUserPresence(AuthServices.java:150)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:162)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:29)
 	at BOB/com.bank.main.Runner.login(Runner.java:71)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATE' in 'field list'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
-	at BOB/com.bank.db.implementation.UserDBAgent.getStatus(UserDBAgent.java:91)
-	... 5 more
+Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/BankDB
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:702)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at BOB/com.bank.db.implementation.UserDBAgent.connect(UserDBAgent.java:28)
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:48)
+	... 6 more
 
-Mar 12, 2024 2:59:23 PM com.bank.services.AdminServices addEmployee
-SEVERE: Error in adding Employee
-com.bank.custom.exceptions.PersistenceException: Error in adding Customer
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:76)
-	at BOB/com.bank.services.AdminServices.addEmployee(AdminServices.java:98)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:172)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLException: Field 'USER_STATE' doesn't have a default value
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1054)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1003)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1312)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:988)
-	at BOB/com.bank.db.implementation.TransacOperations.addUser(TransacOperations.java:128)
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:66)
-	... 4 more
-
-Mar 12, 2024 3:00:41 PM com.bank.services.AdminServices addEmployee
-SEVERE: Error in adding Employee
-com.bank.custom.exceptions.PersistenceException: Error in adding Customer
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:76)
-	at BOB/com.bank.services.AdminServices.addEmployee(AdminServices.java:98)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:172)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLException: Field 'USER_STATE' doesn't have a default value
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1054)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1003)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1312)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:988)
-	at BOB/com.bank.db.implementation.TransacOperations.addUser(TransacOperations.java:128)
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:66)
-	... 4 more
-
-Mar 12, 2024 3:02:12 PM com.bank.services.AdminServices addEmployee
-SEVERE: Error in adding Employee
-com.bank.custom.exceptions.PersistenceException: Error in adding Customer
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:76)
-	at BOB/com.bank.services.AdminServices.addEmployee(AdminServices.java:98)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:172)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLException: Field 'USER_STATE' doesn't have a default value
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1054)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1003)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1312)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:988)
-	at BOB/com.bank.db.implementation.TransacOperations.addUser(TransacOperations.java:128)
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:66)
-	... 4 more
-
-Mar 12, 2024 3:05:23 PM com.bank.services.AdminServices addEmployee
-SEVERE: Error in adding Employee
-com.bank.custom.exceptions.PersistenceException: Error in adding Employee
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:76)
-	at BOB/com.bank.services.AdminServices.addEmployee(AdminServices.java:98)
-	at BOB/com.bank.main.AdminRunner.run(AdminRunner.java:172)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:47)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLException: No value specified for parameter 3
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:377)
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:114)
-	at BOB/com.bank.db.implementation.TransacOperations.addEmployee(TransacOperations.java:67)
-	... 4 more
-
-Mar 12, 2024 3:54:04 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 32
-Mar 12, 2024 3:56:27 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 32
-Mar 12, 2024 3:58:30 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 32
-Mar 12, 2024 3:58:38 PM com.bank.services.AuthServices getServiceObj
-SEVERE: Error in determining user type
-com.bank.custom.exceptions.PersistenceException: Couldn't fetch user type
-	at BOB/com.bank.db.implementation.UserDBAgent.getUserLevel(UserDBAgent.java:122)
-	at BOB/com.bank.services.AuthServices.getServiceObj(AuthServices.java:208)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:42)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLException: Illegal operation on empty result set.
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64)
-	at com.mysql.cj.jdbc.result.ResultSetImpl.checkRowPos(ResultSetImpl.java:528)
-	at com.mysql.cj.jdbc.result.ResultSetImpl.getObject(ResultSetImpl.java:1259)
-	at com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:826)
-	at BOB/com.bank.db.implementation.UserDBAgent.getUserLevel(UserDBAgent.java:119)
-	... 3 more
-
-Mar 12, 2024 4:07:32 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 32
-Mar 12, 2024 4:15:47 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 12
-Mar 12, 2024 4:15:56 PM com.bank.services.AuthServices login
-WARNING: Incorrect login attempt on user id : 12
-Mar 12, 2024 4:16:08 PM com.bank.services.AuthServices setStatus
-SEVERE: Error in setting user status
-com.bank.custom.exceptions.PersistenceException: Couldn't update status
-	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:108)
-	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:128)
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
-	at BOB/com.bank.main.Runner.login(Runner.java:71)
-	at BOB/com.bank.main.Runner.login(Runner.java:75)
-	at BOB/com.bank.main.Runner.login(Runner.java:75)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATUS' in 'field list'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
-	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:106)
-	... 7 more
-
-Mar 12, 2024 4:16:52 PM com.bank.services.AuthServices setStatus
-SEVERE: Error in setting user status
-com.bank.custom.exceptions.PersistenceException: Couldn't update status
-	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:108)
-	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:128)
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
-	at BOB/com.bank.main.Runner.login(Runner.java:71)
-	at BOB/com.bank.main.Runner.login(Runner.java:75)
-	at BOB/com.bank.main.Runner.login(Runner.java:75)
-	at BOB/com.bank.main.Runner.login(Runner.java:75)
-	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
-	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATUS' in 'field list'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
-	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:106)
-	... 8 more
-
-Mar 12, 2024 4:17:02 PM com.bank.services.AuthServices setStatus
-SEVERE: Error in setting user status
-com.bank.custom.exceptions.PersistenceException: Couldn't update status
-	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:108)
-	at BOB/com.bank.services.AuthServices.setStatus(AuthServices.java:128)
-	at BOB/com.bank.services.AuthServices.login(AuthServices.java:41)
+Mar 13, 2024 2:11:17 PM com.bank.services.AuthServices validateUserPresence
+SEVERE: Error in validating user
+com.bank.custom.exceptions.PersistenceException: Couldn't validate user
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:56)
+	at BOB/com.bank.services.AuthServices.validateUserPresence(AuthServices.java:150)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:162)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:29)
 	at BOB/com.bank.main.Runner.login(Runner.java:71)
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
-Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'STATUS' in 'field list'
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
-	at BOB/com.bank.db.implementation.UserDBAgent.setStatus(UserDBAgent.java:106)
-	... 5 more
+Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/BankDB
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:702)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at BOB/com.bank.db.implementation.UserDBAgent.connect(UserDBAgent.java:28)
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:48)
+	... 6 more
 
+Mar 13, 2024 2:12:18 PM com.bank.services.AuthServices validateUserPresence
+SEVERE: Error in validating user
+com.bank.custom.exceptions.PersistenceException: Couldn't validate user
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:56)
+	at BOB/com.bank.services.AuthServices.validateUserPresence(AuthServices.java:150)
+	at BOB/com.bank.services.AuthServices.validateUser(AuthServices.java:163)
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:29)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/BankDB
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:702)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at BOB/com.bank.db.implementation.UserDBAgent.connect(UserDBAgent.java:28)
+	at BOB/com.bank.db.implementation.UserDBAgent.isUserPresent(UserDBAgent.java:48)
+	... 6 more
+
+Mar 13, 2024 3:48:55 PM com.bank.services.AuthServices login
+WARNING: Incorrect login attempt on user id : 1

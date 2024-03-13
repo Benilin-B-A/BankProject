@@ -2,6 +2,7 @@ package com.bank.util;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -12,7 +13,7 @@ public class LogHandler {
 		try {
 			logger = Logger.getLogger(name);
 			FileHandler handler = new FileHandler(fileName,true);
-			java.util.logging.Formatter formatter = new SimpleFormatter();
+			Formatter formatter = new SimpleFormatter();
 			handler.setFormatter(formatter);
 			logger.setUseParentHandlers(false);
 			logger.addHandler(handler);
