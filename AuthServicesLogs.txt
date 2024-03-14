@@ -68,3 +68,9 @@ Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://loca
 
 Mar 13, 2024 3:48:55 PM com.bank.services.AuthServices login
 WARNING: Incorrect login attempt on user id : 1
+Mar 14, 2024 1:00:21 PM com.bank.services.AuthServices login
+WARNING: Incorrect login attempt on user id : 2
+Mar 14, 2024 1:00:28 PM com.bank.services.AuthServices login
+WARNING: Incorrect login attempt on user id : 2
+Mar 14, 2024 1:00:53 PM com.bank.services.AuthServices login
+WARNING: User id : 2blocked exceeding login attempt limit

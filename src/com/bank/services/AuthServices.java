@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.bank.cache.AccountCache;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.PersistenceException;
 import com.bank.enums.Status;
@@ -23,6 +24,7 @@ public class AuthServices {
 	private static EmployeeAgent empAgent = PersistenceObj.getEmployeeAgent();
 	private static CustomerAgent cusAgent = PersistenceObj.getCustmomerAgent();
 	private static AccountsAgent accAgent = PersistenceObj.getAccountsAgent();
+	static AccountCache accCache = AccountCache.getInstance();
 
 	public boolean login(long uId, String password) throws BankingException {
 		try {
@@ -206,7 +208,8 @@ public class AuthServices {
 				if (!(pin == null)) {
 					cus.setPinSet(true);
 				}
-				cus.setCurrentAcc(accAgent.getPrimaryAcc(userId));
+				long accNumber = accAgent.getPrimaryAcc(userId);
+				cus.setCurrentAccount(accCache.getAccount(accNumber));
 				return cus;
 			} else if (type == 2) {
 				EmployeeServices emp = new EmployeeServices();

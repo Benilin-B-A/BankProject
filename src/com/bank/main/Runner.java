@@ -65,8 +65,7 @@ public class Runner {
 
 	static long login() {
 		long userId = MainUtil.getLong("Enter UserId : ");
-		String password = MainUtil.getString("Enter Password : " + "\u001B[8m");
-		System.out.println("\u001B[0m");
+		String password = MainUtil.getString("Enter Password : ");
 		try {
 			auth.login(userId, password);
 		} catch (BankingException exception) {

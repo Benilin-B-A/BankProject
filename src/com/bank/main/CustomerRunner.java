@@ -135,6 +135,8 @@ public class CustomerRunner {
 
 			case 8:
 				try {
+					System.out.println("Select from below accounts");
+					System.out.println(user.getAccounts());
 					long accNum = MainUtil.getLong("Enter account number : ");
 					user.switchAccount(accNum);
 				} catch (BankingException exception) {

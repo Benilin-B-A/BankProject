@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.bank.custom.exceptions.PersistenceException;
@@ -195,6 +197,23 @@ public class AccountsDBAgent implements AccountsAgent {
 			}
 		} catch (SQLException exception) {
 			throw new PersistenceException("Couldn't fetch branch Id", exception);
+		}
+	}
+
+	@Override
+	public List<Long> getAccountList(long customerId) throws PersistenceException {
+		try (Connection connection = connect();
+				PreparedStatement st = connection.prepareStatement(AccountsTableQuery.getAccounts)) {
+			st.setLong(1, customerId);
+			List<Long> list = new ArrayList<>();
+			try (ResultSet set = st.executeQuery()) {
+				while(set.next()) {
+					list.add(set.getLong(1));
+				}
+			}
+			return list;
+		} catch (SQLException exception) {
+			throw new PersistenceException("Couldn't fetch AccountList", exception);
 		}
 	}
 }

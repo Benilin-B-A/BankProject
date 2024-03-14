@@ -30,4 +30,6 @@ public class AccountsTableQuery {
 
 	public static String getBranchId = "select BRANCH_ID from Accounts where ACC_NUMBER = ?";
 
+	public static String getAccounts = "select ACC_NUMBER from Accounts where CUSTOMER_ID = ?";
+
 }

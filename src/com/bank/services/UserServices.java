@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.bank.adapter.JSONAdapter;
+import com.bank.cache.AccountCache;
 import com.bank.custom.exceptions.BankingException;
 import com.bank.custom.exceptions.InvalidInputException;
 import com.bank.custom.exceptions.PersistenceException;
@@ -36,6 +37,8 @@ public abstract class UserServices {
 	private static TransacAgent trAgnet = PersistenceObj.getTransacAgent();
 
 	private static Logger logger = LogHandler.getLogger(UserServices.class.getName(), "UserServices.txt");
+	
+	static AccountCache accCache = AccountCache.getInstance();
 
 	static long getBalance(long aNum) throws BankingException {
 		try {
@@ -159,6 +162,12 @@ public abstract class UserServices {
 					+ "\n*One special character" + "\n*One number");
 		}
 	}
+	
+	static JSONObject getAccountDetails(long accNum) throws BankingException {
+		AuthServices.validateAccount(accNum);
+		Account acc = accCache.get(accNum);
+		return JSONAdapter.objToJSONObject(acc);
+	}
 
 	static JSONArray getAccountStatement(long accNum, int page) throws BankingException {
 		try {
@@ -180,17 +189,6 @@ public abstract class UserServices {
 		} catch (PersistenceException exception) {
 			logger.log(Level.SEVERE, "Couldn't fetch transaction statement", exception);
 			throw new BankingException("Couldn't fetch transaction statement", exception);
-		}
-	}
-
-	static JSONObject getAccountDetails(long accNum) throws BankingException {
-		try {
-			AuthServices.validateAccount(accNum);
-			Account acc = accAgent.getAccount(accNum);
-			return JSONAdapter.objToJSONObject(acc);
-		} catch (PersistenceException exception) {
-			logger.log(Level.INFO, "Couldn't fetch account", exception);
-			throw new BankingException("Couldn't fetch Account for account number : " + accNum, exception);
 		}
 	}
 

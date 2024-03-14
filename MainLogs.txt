@@ -46,3 +46,28 @@ com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attem
 	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
 	at BOB/com.bank.main.Runner.main(Runner.java:23)
 
+Mar 14, 2024 1:00:21 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :2 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:38)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 14, 2024 1:00:28 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: Incorrect login credential :1 attempt(s) left
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:38)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.login(Runner.java:75)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+
+Mar 14, 2024 1:00:53 PM com.bank.main.Runner login
+SEVERE: Login Error
+com.bank.custom.exceptions.BankingException: User Blocked : Contact nearby BOB authority to regain access
+	at BOB/com.bank.services.AuthServices.login(AuthServices.java:42)
+	at BOB/com.bank.main.Runner.login(Runner.java:71)
+	at BOB/com.bank.main.Runner.startApp(Runner.java:38)
+	at BOB/com.bank.main.Runner.main(Runner.java:23)
+

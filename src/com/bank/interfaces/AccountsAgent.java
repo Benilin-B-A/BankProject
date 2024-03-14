@@ -1,5 +1,6 @@
 package com.bank.interfaces;
 
+import java.util.List;
 import java.util.Map;
 
 import com.bank.custom.exceptions.PersistenceException;
@@ -29,4 +30,6 @@ public interface AccountsAgent {
 	void closeAccount(long accNum) throws PersistenceException;
 
 	long getBranchId(long accNum) throws PersistenceException;
+
+	List<Long> getAccountList(long key) throws PersistenceException;
 }
